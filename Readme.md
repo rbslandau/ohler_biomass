@@ -41,7 +41,7 @@ Written by Katharina Ohler, revised by Verena C. Schreiner and Ralf B. Schäfer
   1.1 num_position_family_I.RData: Fit of HGAM for family abundance with different group-level trends  
   1.2 num_position_family_S.RData: Fit of HGAM for family abundance with similar group-level trends  
   1.3 num_position_I.RData: Fit of HGAM for total abundance with different group-level trends  
-  1.4 num_position_order_I.RData: : Fit of HGAM for order abundance with different group-level trends
+  1.4 num_position_order_I.RData: : Fit of HGAM for order abundance with different group-level trends  
   1.5 num_position_order_S.RData: Fit of HGAM for order abundance with similar group-level trends  
   1.6 num_position_S.RData: Fit of HGAM for total abundance with similar group-level trends  
   
