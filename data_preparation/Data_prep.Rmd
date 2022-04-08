@@ -32,10 +32,10 @@ library(ggpubr) # plots
 # Load abundance data
 You need to replace this line with a path on your computer
 ```{r, message=FALSE, warning=FALSE}
-emergence <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/biomass_abundance_data/emergence_identification_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+emergence <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/emergence_identification_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 #View(emergence)
 
-emergence_NA_zero <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/biomass_abundance_data/emergence_NA_0_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+emergence_NA_zero <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/emergence_NA_0_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 #View(emergence_NA_zero)
 ```
 Up in forest and down in vine
@@ -178,9 +178,9 @@ emergence$season <- as.factor(emergence$season)
 ```
 # Biomass and number data
 ```{r, message=FALSE, warning=FALSE}
-biomass_emergence <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/biomass_abundance_data/biomass_emergence_93.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+biomass_emergence <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/biomass_emergence_93.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 
-trap_days <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/biomass_abundance_data/no_trap_days.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+trap_days <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/no_trap_days.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 ## Forest and vine
 
@@ -452,7 +452,7 @@ emergence_NA <- filter(emergence_NA_zero, identified != "y")
 emergence_NA <- emergence_NA[,1:5]
 names(emergence_NA)[5] <- c("collection_days")
 
-emergence_NA_zero <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/biomass_abundance_data/no_trap_days_NA.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+emergence_NA_zero <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/no_trap_days_NA.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 Adjust column names
 ```{r, message=FALSE, warning=FALSE}
@@ -723,9 +723,9 @@ length(unique(percentage_dip_vin$family)) +
 # Trait data
 Load data
 ```{r, message=FALSE, warning=FALSE}
-generation_time <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/trait_data/generation_time_spear.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+generation_time <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data/generation_time_spear.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-Trait_EU <- readRDS(file = "/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/trait_data/Trait_DB_EU_corrected.rds")
+Trait_EU <- readRDS(file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data/Trait_DB_EU_corrected.rds")
 ```
 ## Size
 ### Check which trait data available 
@@ -957,7 +957,7 @@ diff_size_rat <- ggplot() +
        y=expression(Difference~ ratio ~ between~ forest~ and~ agriculture)) +
   geom_hline(aes(yintercept = 0), linetype = "dashed")
 
-#png(filename="diff_size_rat_class.png", width=15, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_size_rat_class.png", width=15, height=10, units="in", res=300)
 diff_size_rat
 #dev.off()
 ```
@@ -1098,7 +1098,7 @@ diff_sen_rat <- ggplot() +
   labs(title = "Ratio of biomass for sensitive \nfamilies", y = expression(Difference~ ratio ~ between~ forest~ and~ agriculture), x = "") +
   geom_hline(aes(yintercept = 0), linetype = "dashed")
 
-#png(filename="diff_gen_rat.png", width=5, height=5, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_gen_rat.png", width=5, height=5, units="in", res=300)
 diff_sen_rat
 #dev.off()
 ```
@@ -1127,7 +1127,7 @@ trait_data_diff <- rbind(gen_bio_diff, size_bio_diff)
 # Physico-chemical (phys-chem) data
 ## Load data
 ```{r, message=FALSE, warning=FALSE}
-phys_chem <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/land_use_related_drivers_data/phys_chem.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+phys_chem <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/land_use_related_drivers_data/phys_chem.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 #View(phys_chem)
 ```
 
@@ -1477,7 +1477,7 @@ keep all original data, because transformation does not improve distribution muc
        
 # Habitat parameter
 ```{r, message=FALSE, warning=FALSE}
-habitat <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/land_use_related_drivers_data/habitat.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+habitat <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/land_use_related_drivers_data/habitat.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 ## Correct mistakes in raw data and convert it into right form
 Correct wrong date
@@ -1653,124 +1653,164 @@ library(EnvStats)
 * method "eds": event driven samples
 * concentration in µg/L
 ```{r, message=FALSE, warning=FALSE}
-psm_conc <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/pesticide_data/4_ANA_Rohdaten_MethodeVereinfacht_neu.txt", header = TRUE,sep = "\t", na.strings = c("NR", "NA"))
-# View(psm_conc)
+psm_conc <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/3_ANA_ConcentrationTox.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
-## Chose data from Rhineland Palatinate
+## Chose data from Rhineland Palatinate and 2018
 ```{r, message=FALSE, warning=FALSE}
 psm_conc_RP <- filter(psm_conc, BL == "RP")
-# View(psm_conc_RP)
+psm_conc_RP <- filter(psm_conc_RP, year == "2018")
 ```
-## Add sample from April Dierbach forest (up)
-
-* sample was labeled wrong, sometimes two values per substance
-* lower concentration belongs to Dierbach up and higher concentration to Dierbach down
-* values in 4_ANA_Rohdaten_MethodeVereinfacht_neu.txt are mean values of up and down site
-
+Chose only needed columns
 ```{r, message=FALSE, warning=FALSE}
-dier_april <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/pesticide_data/Dierbach_April.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+psm_conc_RP <- select(psm_conc_RP,-c("dept", "LC50", "organism", "limitation", "lc50_IUPAC_plant", "uba_rak", "tu", "tu_plant", "rak", "lc50_IUPAC_fish", "tu_fish", "concLoq", "BL", "year"))
 ```
-Dierbach-April-sample
+Define sampleDate as date (before Factor)
+* put Date into new column "Date"
+* important that columns have the same name in all tables, that will be used in later analysis
 ```{r, message=FALSE, warning=FALSE}
-dier_april_sample_ID <- unique(dier_april$samplingID)
-
-psm_conc_RP_dier <- filter(psm_conc_RP, samplingID == dier_april_sample_ID)
-
-psm_conc_RP_dier <- filter(psm_conc_RP_dier, conc != 0)
+psm_conc_RP$Date <- as.Date(psm_conc_RP$sampleDate,format="%Y-%m-%d")
 ```
-Table to compare values of 4_ANA and Dierbach-April-sample
+
+## Add forest samples 
+* Triefenbach, Kropsbach, Kaiserbach, Klingbach, Isenach, Modenbach not in 3_ANA table
+* Sample from Dierbach in April labeled not correct in in 3_ANA. So sometimes 2 values per substance: Lower concentration belongs to Dierbach up and higher concentration to Dierbach down 
+
+Load samples 
 ```{r, message=FALSE, warning=FALSE}
-compare <- dier_april 
-
-compare$conc_psm_RP_dier <- with(compare, ifelse(subKgM == "2_4_D", 0.0189150, ifelse(subKgM == "boscalid",  0.0016635, ifelse(subKgM == "flufenacet_thiadone_AE_1258593", 0.0039610, ifelse(subKgM == "MCPA", 0.0018305, 0.0059075))))) 
-
-names(compare)[14] <- c("conc_dier_april")
-
-compare <- select(compare, c("subKgM", "CAS", "conc_dier_april", "conc_psm_RP_dier"))
-#View(compare)
+psm_forest <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/samples_forest_2.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
-Table with concentration of Dierbach April samples
+Long format and name columns
 ```{r, message=FALSE, warning=FALSE}
-dier_april <- select(dier_april, c("BL", "siteID","samplingID", "sampleDate", "method", "subKgM", "subDeu", "CAS", "typeBVL", "conc", "LC50", "uba_rak"))
+psm_forest <- melt(psm_forest, 
+                        id.vars = c("labelShort", "siteID", "samplingID",
+                                    "sampleDate", "method"))
 
-dier_april$siteID[dier_april$conc == 0.018160] <- "RP_DierR"
-dier_april$siteID[dier_april$conc == 0.001362] <- "RP_DierR"
-dier_april$siteID[dier_april$conc == 0.005742] <- "RP_DierR"
+psm_forest <- filter(psm_forest, variable != "label")
 
-dier_april$samplingID <- with(dier_april, ifelse(siteID == "RP_Dier", dier_april_sample_ID, "RP_DierR_20180417"))
+names(psm_forest)[6] <- "subKgM"
+names(psm_forest)[7] <- "conc"
 ```
-Remove "wrong"values of 4_ANA table (psm_conc_RP)
+Correct PSM name
 ```{r, message=FALSE, warning=FALSE}
-psm_conc_RP <- filter(psm_conc_RP, samplingID != dier_april_sample_ID)
+psm_forest$subKgM <- gsub("X2_4_D", "2_4_D", psm_forest$subKgM)
+psm_forest$subKgM <- gsub("spinosad_D", "spinosad", psm_forest$subKgM)
+psm_forest$subKgM <- gsub("spinosad_A", "spinosad", psm_forest$subKgM)
 ```
-Put variables into needed format to merge tables
+Define sampleDate as date 
 ```{r, message=FALSE, warning=FALSE}
-psm_conc_RP$BL <- as.character(psm_conc_RP$BL)
-psm_conc_RP$siteID <- as.character(psm_conc_RP$siteID)
-psm_conc_RP$samplingID <- as.character(psm_conc_RP$samplingID)
-psm_conc_RP$sampleDate <- as.character(psm_conc_RP$sampleDate)
-psm_conc_RP$method <- as.character(psm_conc_RP$method)
-psm_conc_RP$subKgM <- as.character(psm_conc_RP$subKgM)
-psm_conc_RP$subDeu <- as.character(psm_conc_RP$subDeu)
-psm_conc_RP$typeBVL <- as.character(psm_conc_RP$typeBVL)
+psm_forest$Date <- as.Date(psm_forest$sampleDate,format="%Y-%m-%d")
+```
+Add column Pesticide.type
+```{r, message=FALSE, warning=FALSE}
+psm_type <- select(psm_conc, c("Pesticide.type", "subKgM"))
+psm_type <- distinct(psm_type)
 
-dier_april$sampleDate <- gsub("20180417", "2018-04-17", dier_april$sampleDate)
+psm_forest <- left_join(psm_forest, psm_type, by = c("subKgM"))
+```
+Bind psm_conc_RP and psm_forest
+```{r, message=FALSE, warning=FALSE}
+psm_conc_RP <- rbind(psm_conc_RP, psm_forest)
+```
+## Simplify Pesticide.types
+```{r}
+unique(psm_conc_RP$Pesticide.type)
+psm_conc_RP$Pesticide.type <- sub("([A-Za-z]+).*", "\\1",
+                                  psm_conc_RP$Pesticide.type)
+unique(psm_conc_RP$Pesticide.type)
+# two metabolites were wrongly assigned as a herbicides, change type
+psm_conc_RP$Pesticide.type <- ifelse(psm_conc_RP$subKgM == "metolachlor_ESA",
+                                     "Metabolite", psm_conc_RP$Pesticide.type)
+psm_conc_RP$Pesticide.type <- ifelse(psm_conc_RP$subKgM == "captan_THPAM",
+                                     "Metabolite", psm_conc_RP$Pesticide.type)
+
+# all which have "NA" as compound type are also metabolites
+psm_conc_RP$Pesticide.type <- ifelse(is.na(psm_conc_RP$Pesticide.type),
+                                     "Metabolite", psm_conc_RP$Pesticide.type)
+unique(psm_conc_RP$Pesticide.type)
+```
+
+## Number of analysed compounds/ / pesticides per site and time-point
+this needs to be done a) before removing the metabolites and b) the non-detects
+number of all analysed compounds
+```{r}
+count_comp <- psm_conc_RP
+count_comp_all <- data.frame(cast(count(count_comp, c("siteID", "subKgM", "sampleDate")), siteID + sampleDate ~  ., value = "subKgM",  length))
+```
+number of analysed pesticides
+```{r}
+# remove metabolites
+count_comp_PSM <- count_comp[!count_comp$Pesticide.type == "Metabolite", ]
+
+count_comp_allPSM <- data.frame(cast(count(count_comp_PSM, c("siteID", "subKgM", "sampleDate")), siteID + sampleDate  ~  ., value = "subKgM",  length))
+```
+number of analysed metabolites
+```{r}
+count_comp_meta <- count_comp[count_comp$Pesticide.type == "Metabolite", ]
+
+count_comp_allmeta <- data.frame(cast(count(count_comp_meta, c("siteID", "subKgM", "sampleDate")), siteID + sampleDate ~  ., value = "subKgM",  length))
+```
+
+## Filter for pesticides, remove metabolites
+```{r}
+psm_conc_RP <- psm_conc_RP[!psm_conc_RP$Pesticide.type == "Metabolite", ]
+```
+
+## Remove all non-detects
+```{r}
+psm_conc_RP <- psm_conc_RP[!psm_conc_RP$conc == "0", ]
+psm_conc_RP <- filter(psm_conc_RP, !is.na(conc))
+```
+
+## Add CAS numbers
+Load in CAS information
+```{r}
+CAS_KgM <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/0_ANA_Substances.txt", header = TRUE,sep = "\t", na.strings = c("NR", "NA")) 
 ```
 Merge tables
-```{r, message=FALSE, warning=FALSE}
-psm_conc_RP <- bind_rows(psm_conc_RP, dier_april)
+```{r}
+psm_conc_RP <- merge(psm_conc_RP, CAS_KgM, by="subKgM", all.x = TRUE)
 ```
-Put in needed format for calculations
+Variables into factors
 ```{r, message=FALSE, warning=FALSE}
-psm_conc_RP$BL <- as.factor(psm_conc_RP$BL)
+str(psm_conc_RP)
+psm_conc_RP$labelShort <- as.factor(psm_conc_RP$labelShort)
 psm_conc_RP$siteID <- as.factor(psm_conc_RP$siteID)
 psm_conc_RP$samplingID <- as.factor(psm_conc_RP$samplingID)
 psm_conc_RP$sampleDate <- as.factor(psm_conc_RP$sampleDate)
 psm_conc_RP$method <- as.factor(psm_conc_RP$method)
 psm_conc_RP$subKgM <- as.factor(psm_conc_RP$subKgM)
 psm_conc_RP$subDeu <- as.factor(psm_conc_RP$subDeu)
-psm_conc_RP$typeBVL <- as.factor(psm_conc_RP$typeBVL)
+psm_conc_RP$Pesticide.type <- as.factor(psm_conc_RP$Pesticide.type)
 ```
 ## Add columns
 Site column
 ```{r, message=FALSE, warning=FALSE}
 unique(psm_conc_RP$siteID)
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Kaiser"] <- "Kaiserbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_KaiserR"] <- "Kaiserbach_forest"
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_KaiserREF"] <- "Kaiserbach_forest"
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Ise"] <- "Isenach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_IseR"] <- "Isenach_forest"
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_IseREF"] <- "Isenach_forest"
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Krops"] <- "Kropsbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_KropsR"] <- "Kropsbach_forest"
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_KropsREF"] <- "Kropsbach_forest"
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Trief"] <- "Triefenbach_vine"   
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_TriefR"] <- "Triefenbach_forest" 
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_TriefREF"] <- "Triefenbach_forest" 
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Moden"] <- "Modenbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_ModenR"] <- "Modenbach_forest"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Moden"] <- "Modenbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_ModenR"] <- "Modenbach_forest"
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_ModREF"] <- "Modenbach_forest"
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Otter"] <- "Otterbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_OtterR"] <- "Otterbach_forest"
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_OtterREF"] <- "Otterbach_forest"
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Kling"] <- "Klingbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_KlingR"] <- "Klingbach_forest"
-```
-RP_HainR eds samples wrong name in table, actually this are samples from RP_Hain (down site; NOT up site)
-```{r, message=FALSE, warning=FALSE}
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_KlingREF"] <- "Klingbach_forest"
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Hain"] <- "Hainbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_HainR"] <- "Hainbach_forest"
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_HainREF"] <- "Hainbach_forest"
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Russ"] <- "Russbach_vine"        
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_RussR"] <- "Russbach_forest"   
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_RussREF"] <- "Russbach_forest"   
 psm_conc_RP$Site[psm_conc_RP$siteID == "RP_Dier"] <- "Dierbach_vine"
-psm_conc_RP$Site[psm_conc_RP$siteID == "RP_DierR"] <- "Dierbach_forest"
-
-psm_conc_RP$Site[psm_conc_RP$Site == "Hainbach_forest" & psm_conc_RP$method == "eds"] <- "Hainbach_vine"
-psm_conc_RP$Site[psm_conc_RP$Site == "Otterbach_forest" & psm_conc_RP$method == "eds"] <- "Otterbach_vine"
+psm_conc_RP$Site[psm_conc_RP$siteID == "RP_DierREF"] <- "Dierbach_forest"
+unique(psm_conc_RP$Site)
 ```
 Add stream and position column
 ```{r, message=FALSE, warning=FALSE}
 psm_conc_RP <- separate(psm_conc_RP, Site, c("stream", "position"), sep = "_", remove = FALSE)
-```
-Remove columns LC50 and uba_rak
-```{r, message=FALSE, warning=FALSE}
-psm_conc_RP <- select(psm_conc_RP,-c("LC50","uba_rak"))
 ```
 Define sampleDate as date (before Factor)
 * put Date into new column "Date"
@@ -1796,15 +1836,6 @@ Define seasons for emergence:
 psm_conc_RP$season <-with(psm_conc_RP, ifelse(Date > "2018-03-21" & Date <= "2018-05-16","spring",ifelse(Date > "2018-05-16" & Date <= "2018-07-26","summer","autumn")))
 psm_conc_RP$season <- as.factor(psm_conc_RP$season)
 ```
-## Remove metabolites + pharmaceuticals, to get only data for pesticides
-```{r, message=FALSE, warning=FALSE}
-unique(psm_conc_RP$typeBVL)
-psm_conc_RP <- psm_conc_RP[!(psm_conc_RP$typeBVL == "P" | psm_conc_RP$typeBVL == "M"), ]
-```
-## Remove all non-detects
-```{r, message=FALSE, warning=FALSE}
-psm_conc_RP <- psm_conc_RP[!psm_conc_RP$conc == "0", ]
-```
 
 # Toxicity
 ## PSM in water
@@ -1816,7 +1847,7 @@ no_samples <- psm_conc_RP
 
 no_samples <- unite(no_samples, "no_samples", "samplingID", "method", remove = FALSE)
 length(unique(no_samples$no_samples)) # 134 samples
-# View(unique(no_samples$no_samples))
+length(unique(no_samples$samplingID)) # 130 samples
 ```
 Same sampling ID with different methods
 * RP_Russ_20180820_schoepf and RP_Russ_20180820_eds
@@ -1834,6 +1865,7 @@ length(unique(no_schoepf$samplingID)) # 85 grab samples
 ```
 Give samples unique samplingID, by changing eds samples ID into ...20180822
 ```{r, message=FALSE, warning=FALSE}
+length(unique(psm_conc_RP$samplingID)) # 130
 psm_conc_RP$samplingID <- as.character(psm_conc_RP$samplingID)
 
 psm_conc_RP$samplingID[psm_conc_RP$samplingID == "RP_Russ_20180820" & psm_conc_RP$method == "eds"] <-  "RP_Russ_20180822"
@@ -1844,16 +1876,14 @@ psm_conc_RP$samplingID[psm_conc_RP$samplingID == "RP_Kling_20180820" & psm_conc_
 psm_conc_RP$samplingID[psm_conc_RP$samplingID == "RP_Kaiser_20180820" & psm_conc_RP$method == "eds"] <- "RP_Kaiser_20180822"
 
 psm_conc_RP$samplingID <- as.factor(psm_conc_RP$samplingID)
-length(unique(psm_conc_RP$samplingID)) # now right
+length(unique(psm_conc_RP$samplingID)) # now right: 134
 ```
-
 
 ### How many compunds have been detected?
 #### EDS and schoepf
 count number of compounds per pesticide type
 ```{r, message=FALSE, warning=FALSE}
-no_psm_type <- data.frame(cast(psm_conc_RP, samplingID  ~ typeBVL, value = "conc",  length))
-#View(no_psm_type)
+no_psm_type <- data.frame(cast(psm_conc_RP, samplingID  ~ Pesticide.type, value = "conc",  length))
 ```
 transform in long format
 ```{r, message=FALSE, warning=FALSE}
@@ -1876,7 +1906,7 @@ types_psm_fig
 ```
 #### EDS
 ```{r, message=FALSE, warning=FALSE}
-no_psm_type2 <- merge(no_psm_type, unique(psm_conc_RP[, c(3,5)]), by = c("samplingID"))
+no_psm_type2 <- merge(no_psm_type, unique(psm_conc_RP[, c(4,6)]), by = c("samplingID"))
 no_psm_type2 <- no_psm_type2[no_psm_type2$method == "eds", ]
 no_psm_type2 <- no_psm_type2[,c(1:4)]
 ```
@@ -1899,7 +1929,7 @@ ggplot(no_psm_type2_long, aes(x = variable, y = value)) +
 ```
 #### Schoepf
 ```{r, message=FALSE, warning=FALSE}
-no_psm_type3 <- merge(no_psm_type, unique(psm_conc_RP[, c(3,5)]), by = c("samplingID"))
+no_psm_type3 <- merge(no_psm_type, unique(psm_conc_RP[, c(4,6)]), by = c("samplingID"))
 no_psm_type3 <- no_psm_type3[no_psm_type3$method == "schoepf", ]
 no_psm_type3 <- no_psm_type3[,c(1:4)]
 ```
@@ -1944,7 +1974,7 @@ Vio_no3 <- Vio_no2[order(Vio_no2$no),]
 ```
 Plot without max show land use and season
 ```{r, message=FALSE, warning=FALSE}
- Vio_no_fig_wo_max_pos_seas <- 
+Vio_no_fig_wo_max_pos_seas <- 
   ggplot(Vio_no, aes(x = 1, y = no)) + 
     geom_violin(trim=FALSE) +
   ylab("N")+
@@ -1961,7 +1991,7 @@ Vio_no_fig_wo_max_pos_seas
 ```
 Plot without max show eds and grab samples
 ```{r, message=FALSE, warning=FALSE}
- Vio_no_fig_wo_max_method <- 
+Vio_no_fig_wo_max_method <- 
   ggplot(Vio_no, aes(x = 1, y = no)) + 
     geom_violin(trim=FALSE) +
   ylab("N")+
@@ -1978,7 +2008,7 @@ Vio_no_fig_wo_max_method # black: eds, grey: grab
 ```
 Plot with max
 ```{r, message=FALSE, warning=FALSE}
-  Vio_no_fig_max <- 
+Vio_no_fig_max <- 
   ggplot(Vio_no3, aes(x = 1, y = no)) + 
     geom_violin(trim=FALSE) +
   ylab("N")+
@@ -1996,12 +2026,12 @@ Vio_no_fig_max
 ### Which pesticides detected?
 #### EDS and schoepf
 ```{r, message=FALSE, warning=FALSE}
-det_compounds <- as.data.frame(unique(psm_conc_RP$subKgM)) # 67 pesticides
+det_compounds <- as.data.frame(unique(psm_conc_RP$subKgM)) # 66 pesticides
 ```
 #### Schoepf samples
 ```{r, message=FALSE, warning=FALSE}
 psm_conc_RP_grab <- filter(psm_conc_RP, method == "schoepf")
-det_compounds_grab <- as.data.frame(unique(psm_conc_RP_grab$subKgM)) # 56 pesticides
+det_compounds_grab <- as.data.frame(unique(psm_conc_RP_grab$subKgM)) # 54 pesticides
 ```
 #### EDS samples
 ```{r, message=FALSE, warning=FALSE}
@@ -2013,10 +2043,10 @@ det_compounds_eds <- as.data.frame(unique(psm_conc_RP_eds$subKgM)) # 64 pesticid
 ### Load data
 You need to replace this line with a path on your computer
 ```{r, message=FALSE, warning=FALSE}
-sed_conc <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/pesticide_data/20191111_KgM_SPM-Extrakte_2018_final_nur_RLP.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+sed_conc <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/20191111_KgM_SPM-Extrakte_2018_final_nur_RLP.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 # View(sed_conc)
 
-foc <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/pesticide_data/06_Schwebstoffilter GC_LC.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+foc <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/06_Schwebstoffilter GC_LC.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 # View(foc)
 ```
 Delete not needed rows
@@ -2128,13 +2158,9 @@ Add CAS
 ```{r, message=FALSE, warning=FALSE}
 psm_sed_conc$CAS <- with(psm_sed_conc, ifelse(subKgM == "Allethrin", 584792, ifelse(subKgM == "Prallethrin", 23031369, ifelse(subKgM == "Acrinathrin", 101007061, ifelse(subKgM == "Permethrin", 52645531, 80844071)))))
 ```
-Add typeBVL
+Add Pesticide.type
 ```{r, message=FALSE, warning=FALSE}
-psm_sed_conc$typeBVL <- with(psm_sed_conc, "I")
-```
-Add BL
-```{r, message=FALSE, warning=FALSE}
-psm_sed_conc$BL <- with(psm_sed_conc, "RP")
+psm_sed_conc$Pesticide.type <- with(psm_sed_conc, "Insecticide")
 ```
 Add subDeu
 ```{r, message=FALSE, warning=FALSE}
@@ -2195,20 +2221,24 @@ psm_sed_conc$season <- as.factor(psm_sed_conc$season)
 ## Combine PSM water and bound on particles
 Put variables in psm_sed_conc into same format as in psm_conc_RP
 ```{r, message=FALSE, warning=FALSE}
-psm_sed_conc$BL <- as.factor(psm_sed_conc$BL)
 psm_sed_conc$siteID <- as.factor(psm_sed_conc$siteID)
 psm_sed_conc$samplingID <- as.factor(psm_sed_conc$samplingID)
 psm_sed_conc$sampleDate <- as.factor(psm_sed_conc$sampleDate)
 psm_sed_conc$method <- as.factor(psm_sed_conc$method)
 psm_sed_conc$subKgM <- as.factor(psm_sed_conc$subKgM)
 psm_sed_conc$subDeu <- as.factor(psm_sed_conc$subDeu)
-psm_sed_conc$typeBVL <- as.factor(psm_sed_conc$typeBVL)
+psm_sed_conc$Pesticide.type <- as.factor(psm_sed_conc$Pesticide.type)
 psm_sed_conc$CAS <- as.integer(psm_sed_conc$CAS)
+
+psm_conc_RP$conc <- as.numeric(psm_conc_RP$conc)
+```
+Remove labelShort
+```{r, message=FALSE, warning=FALSE}
+psm_conc_RP <- select(psm_conc_RP, -c("labelShort"))
 ```
 Merge psm_conc_RP and sed_conc tables
 ```{r, message=FALSE, warning=FALSE}
 psm_conc_RP_pyr <- bind_rows(psm_conc_RP, psm_sed_conc)
-#View(psm_conc_RP_pyr)
 ```
 
 ## EC50 with standartox for most sensitive freshwater invertebrate
@@ -2232,14 +2262,11 @@ if (run) {
   saveRDS(query_st, file = "KGM_freshwater_invertebrate_XX50.rds")
 
 } else {
-  query_st = readRDS(file = "/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/pesticide_data/KGM_freshwater_invertebrate_XX50.rds")
+  query_st = readRDS(file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/KGM_freshwater_invertebrate_XX50.rds")
 }
 
 # filtered data
 query_st_fil <- as.data.frame(query_st$filtered)
-
-#View(query_st_fil)
-
 ```
 Remove tests which were identified as an outlier
 ```{r, message =FALSE, warning= FALSE}
@@ -2273,7 +2300,6 @@ Select most sensetive taxon per compound
 query_st_geom <- as.data.table(query_st_geom)
 query_EC50 <- query_st_geom[query_st_geom[ , .I[EC50 == min(EC50)], by = c("cname", "cas")]$V1]
 query_EC50$ec50f_ma4896_src <- with(query_EC50, "epa")
-#View(query_EC50)
 ```
 
 ## Calculate Toxicity
@@ -2299,8 +2325,7 @@ EC50_missing <- distinct(EC50_missing)
 ```
 Load table with EC50 values looked up manually
 ```{r, message=FALSE, warning=FALSE}
-EC50_manually <- read.table("/Users/katharinafrisch/Desktop/biomass_mit_unterordnern/pesticide_data/EC50_version_190326.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
-# View(EC50_manually)
+EC50_manually <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/EC50_version_190326.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 
 EC50_manually <- select(EC50_manually, c("casnr", "subst_name", "ec50f_ma4896_fin", "ec50f_ma4896_tax", "ec50f_ma4896_n", "ec50f_ma4896_src"))
 
@@ -2367,7 +2392,7 @@ EC50_ms <- bind_rows(EC50_ms, EC50_missing)
 ```
 Add type of pesticide (herbicide, insecticide ....)
 ```{r, message=FALSE, warning=FALSE}
-type_psm <- select(psm_conc_RP_pyr, c("CAS", "typeBVL"))
+type_psm <- select(psm_conc_RP_pyr, c("CAS", "Pesticide.type"))
 type_psm <- distinct(type_psm)
 
 EC50_SI <- left_join(EC50_ms, type_psm, by = "CAS")
@@ -2418,9 +2443,11 @@ Get sumTU per Date (meaning per sampling)
 ```{r, message=FALSE, warning=FALSE}
 sumTU_ms_date <- ddply(tox_ms, c("Site","method", "Date"), summarise, sumTU_ms=log10(sum(tox_ms_fac, na.rm = TRUE)))
 ```
+# HIER weiter
+
 Add season information
 ```{r, message =FALSE, warning= FALSE}
-Date_season <- unique(psm_conc_RP_pyr[,c(14,15)])
+Date_season <- unique(psm_conc_RP_pyr[,c(8, 14)])
 sumTU_ms_date <- merge(sumTU_ms_date, Date_season, by = c("Date"))
 
 length(unique(sumTU_ms_date$sumTU_ms))
@@ -2471,7 +2498,7 @@ maxTU_ms_date <- ddply(tox_ms, c("Site","method", "Date"), summarise, maxTU_ms=(
 ```
 Add season information
 ```{r, message =FALSE, warning= FALSE}
-Date_season <- unique(psm_conc_RP_pyr[,c(14,15)])
+Date_season <- unique(psm_conc_RP_pyr[,c(8, 14)])
 maxTU_ms_date <- merge(maxTU_ms_date, Date_season, by = c("Date"))
 
 length(unique(maxTU_ms_date$maxTU_ms))
@@ -2545,7 +2572,7 @@ max_TU_sumTU <- ggplot(max_sumTU_plot, aes(x=day, y=value)) +
   annotate(geom = "text", x = 225, y = 1, label = "autumn", size = 6)
 
 
-#png(filename="max_TU_sumTU.png", width=7.5, height=7.5, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/max_TU_sumTU.png", width=7.5, height=7.5, units="in", res=300)
 max_TU_sumTU
 #dev.off()
 ```
@@ -2712,7 +2739,7 @@ plot_diff <- annotate_figure(plot_diff, top = text_grob(" ", face = "bold", size
 
 plot_diff <- annotate_figure(plot_diff, fig.lab = ("Differences in land use related drivers between forested and agricultural sites"), fig.lab.pos = "top.left", fig.lab.size = 25, fig.lab.face = "bold")
 
-#png(filename="diff_plot.png", width=20, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_plot.png", width=20, height=10, units="in", res=300)
 plot_diff
 #dev.off()
 ```
@@ -2762,7 +2789,7 @@ plot_diff_fam_ept <- ggarrange(diff_fam, diff_EPT, diff_dip,
                   labels = c("A", "B", "C"),
                   ncol = 2, nrow = 2, align = "hv")
 
-#png(filename="diff_fam_ept.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_fam_ept.png", width=10, height=10, units="in", res=300)
 plot_diff_fam_ept
 #dev.off()
 ```
@@ -2850,25 +2877,25 @@ names(range_env_glmm)[1] <- c("Land use related driver")
 names(range_env_glmm)[3] <- c("Forest: mean and range")
 names(range_env_glmm)[4] <- c("Agriculture: mean and range")
 
-#write.csv(range_env_all, file = "range_env_all.csv", row.names = FALSE)
-#write.csv(range_env_glmm, file = "range_env_glmm.csv", row.names = FALSE)
+#write.csv(range_env_all, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/range_env_all.csv", row.names = FALSE)
+#write.csv(range_env_glmm, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/range_env_glmm.csv", row.names = FALSE)
 ```
 
 # Save data for statistics
 ## HGAM
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(biomass_emergence_sample, file = "biomass_emergence_sample.csv", row.names = FALSE)
+#write.csv(biomass_emergence_sample, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_emergence_sample.csv", row.names = FALSE)
 
-#write.csv(biomass_emergence_order_sample, file = "biomass_emergence_order_sample.csv", row.names = FALSE)
+#write.csv(biomass_emergence_order_sample, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_emergence_order_sample.csv", row.names = FALSE)
 
-#write.csv(biomass_emergence_family_sample, file = "biomass_emergence_family_sample.csv", row.names = FALSE)
+#write.csv(biomass_emergence_family_sample, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_emergence_family_sample.csv", row.names = FALSE)
 ```
 ## (G)LMM
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(data_env_1, file = "data_env_1.csv", row.names = FALSE)
+#write.csv(data_env_1, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/data_env_1.csv", row.names = FALSE)
 ```
 ## Paired t-test
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(trait_data, file = "trait_data.csv", row.names = FALSE)
-#write.csv(trait_data_diff, file = "trait_data_diff.csv", row.names = FALSE)
+#write.csv(trait_data, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data.csv", row.names = FALSE)
+#write.csv(trait_data_diff, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data_diff.csv", row.names = FALSE)
 ```

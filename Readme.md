@@ -22,12 +22,13 @@ Written by Katharina Ohler, revised by Verena C. Schreiner and Ralf B. Schäfer
   2.2 phys_chem.csv: Physicochemical land use-related-drivers of emergent aquatic insects  
 
  3. pesticide_data: All raw data to calculate pesticide toxicity  
-   3.1 4_ANA_Rohdaten_MethodeVereinfacht_neu: Concentration of pesticides in event and grab samples  
-    3.2 06_Schwebstoffilter GC_LC.csv: Fraction of organic carbon in the samples of suspended particles    
-  3.3 20191111_KgM_SPM-Extrakte_2018_final_nur_RLP.csv: Concentration of pesticides on suspended particles  
-    3.4 Dierbach_April.csv: Correction of incorrectly labelled samples in "_4_ANA_Rohdaten_MethodeVereinfacht_neu.txt"  
+   3.1 0_ANA_Substances.txt: CAS number of pesticides
+   3.2 3_ANA_ConcentrationTox.csv: Concentration of pesticides in event and grab samples
+    3.3 06_Schwebstoffilter GC_LC.csv: Fraction of organic carbon in the samples of suspended particles    
+  3.4 20191111_KgM_SPM-Extrakte_2018_final_nur_RLP.csv: Concentration of pesticides on suspended particles  
   3.5 EC50_version_190326.csv: EC50 values not found in Standartox  
-  3.6 KGM_freshwater_invertebrate_XX50.rds: EC50 from Standartox  
+  3.6 KGM_freshwater_invertebrate_XX50.rds: EC50 from Standartox
+  3.7 Samples_forest_2: Concentration of pesticides in grab samples of forested sites  
   
 4. trait_data: All trait data  
   4.1 generation_time_spear.csv: Raw data of trait generation time of emergent aquatic insects  
