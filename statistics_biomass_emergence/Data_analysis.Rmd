@@ -28,22 +28,23 @@ library(data.table) # Data wrangling
 library(reshape2) # Data wrangling
 library(ggplot2) # plots
 library(ggpubr) # plots
+library(ggrepel) # plots
 library(texreg) # export model output to html or latex
 ```
 # Load data
 You need to replace this line with a path on your computer
 ```{r, message=FALSE, warning=FALSE}
-trait_data <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+trait_data <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-trait_data_diff <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data_diff.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+trait_data_diff <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data_diff.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-biomass_emergence_family_sample <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_family_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+biomass_emergence_family_sample <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_family_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-biomass_emergence_order_sample <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_order_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+biomass_emergence_order_sample <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_order_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-biomass_emergence_sample <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+biomass_emergence_sample <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-data_env_1 <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/stats_land_use_related_drivers_data/data_env_1.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+data_env_1 <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/stats_land_use_related_drivers_data/data_env_1.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 ```
 
 # Paired t-test for trait data
@@ -125,16 +126,135 @@ summary(anosim)
 plot(anosim)
 
 set.seed(222)
-anosim <- anosim(spec_ma_site, env_site$stream, distance = "jaccard")
-summary(anosim)
-plot(anosim)
+anosim_stream <- anosim(spec_ma_site, env_site$stream, distance = "jaccard")
+summary(anosim_stream)
+plot(anosim_stream)
 ```
--> restricted permutation because of paired design?
--> no permutations of position within stream, only between streams
--> means dierbach forest can be permuted with kropsbach vine, but not with dierbach forest
+  
+## Plot ANOSIM results
+Function to calculate relationship between dimensions and stress
+```{r, message=FALSE, warning=FALSE}
+scree_values <- function(x, max, dist_meas) {
+  xx <- as.matrix(x)
+  scree.points <- NULL
+  scree.temp <- 1
+  for (i in 1:max)
+  {
+    sol.mds <- NULL
+    sol.mds <- replicate(
+      10, metaMDS(xx, k = i, trymax = 30, distance = dist_meas)$stress,
+      simplify = TRUE
+    )
+    scree.points <- append(scree.points, sol.mds)
+  }
+  return(scree.points)
+}
+```
 
-function (type = c("free", "series", "grid", "none"), constant = FALSE,
-    mirror = FALSE, ncol = NULL, nrow = NULL)
+Get and plot relationship between dimensions and stress
+* red line indicates threshold for good Stress1 value
+* Choose 4 dimensions
+
+```{r, message=FALSE, warning=FALSE}
+scree.res <- scree_values(spec_ma_site, max = 10, dist_meas = "jaccard")
+
+par(cex = 1.5, las = 1)
+plot_vec <- as.vector(sapply(1:(length(scree.res) / 10), function(x) rep(x, 10), simplify = "vector"))
+# prerequisite for plotting replicated runs of nmds
+plot(plot_vec, scree.res, ylab = "Stress1", xlab = "dimensions")
+lines(1:(length(scree.res) / 10), as.vector((by(scree.res, plot_vec, mean))))
+abline(h = 0.10, col = "red")
+```
+
+### Run NMDS 
+with Jaccard Index
+```{r, message=FALSE, warning=FALSE}
+#nmds <- metaMDS(spec_ma_site, k = 4, distance = "jaccard", autotransform = FALSE)
+#saveRDS(nmds, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/nmds.rds")
+nmds <- readRDS(file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/ANOSIM/nmds.rds")
+```
+
+Shepard diagram
+* Non-metric fit is based on stress and calculated as R^2 = sqrt(1- S^2)
+* Linear R^2 = explained variation of regression of observed distances against ordination distances
+* Looks okay
+```{r, message=FALSE, warning=FALSE}
+stressplot(nmds)
+```
+
+### Plot NMDS
+Prepare data for plotting
+```{r, message=FALSE, warning=FALSE}
+fam_scores <- as.data.frame(nmds$species)
+fam_scores$family <- rownames(fam_scores)
+
+sample_scores <-as.data.frame(nmds$points)
+sample_scores <- cbind(sample_scores, env_site)
+```
+
+Add order to families
+```{r, message=FALSE, warning=FALSE}
+order <- select(biomass_emergence_family_sample, c("order", "family"))
+order <- distinct(order)
+
+fam_scores <- left_join(fam_scores, order, by = "family")
+```
+
+Chose only first three letters from families
+```{r, message=FALSE, warning=FALSE}
+fam_scores$fam <- regmatches(fam_scores$family, regexpr("^.{0,3}", fam_scores$family))
+
+fam_scores[c(18,21),7] <- regmatches(fam_scores[c(18,21),5], 
+                                  regexpr("^.{0,4}", fam_scores[c(18,21),5])) 
+
+fam_scores[c(16, 26),7] <- regmatches(fam_scores[c(16, 26),5], 
+                                  regexpr("^.{0,7}", fam_scores[c(16, 26),5]))
+
+fam_scores[c(10),7] <- regmatches(fam_scores[c(10),5], 
+                                  regexpr("^.{0,8}", fam_scores[c(10),5]))
+
+```
+
+Add colour to order
+```{r, message=FALSE, warning=FALSE}
+fam_scores$colour <- with(fam_scores, ifelse(order == "Diptera", "brown", 
+                          ifelse(order == "Ephemeroptera", "cornflowerblue",
+                                 ifelse( order == "Plecoptera", "darkolivegreen3",
+                                         "blueviolet"))))
+```
+
+Vine in agriculture
+```{r, message=FALSE, warning=FALSE}
+sample_scores$position <- gsub("vine","agriculture", sample_scores$position)
+sample_scores$position <- factor(sample_scores$position, levels = c("forest", "agriculture"))
+```
+
+Plot
+```{r, message=FALSE, warning=FALSE}
+nmds_plot <- ggplot() +
+  theme_classic() + 
+  theme(legend.title = element_blank(), legend.position="bottom", 
+      plot.title = element_text(size=20), legend.text = element_text(size=15),
+      axis.text = element_text(size=15), axis.title = element_text(size=15),
+      strip.text = element_text(size=15)) +
+  labs(title = "Families between land use types", 
+       x=expression(NMDS1),
+       y=expression(NMDS2),
+       shape ="") +
+  guides(color = guide_legend(override.aes = list(size = 5))) +
+  scale_fill_manual(values=c("darkgreen", "blue")) + 
+  scale_color_manual(values=c("darkgreen", "blue")) +
+  geom_point(data = sample_scores, aes(x=MDS1, y=MDS2, col = position), 
+                                          show.legend = TRUE, size=5, stroke = 1.5,
+                                          alpha = 0.5) +
+  geom_text_repel(data = fam_scores, aes(x = MDS1, y = MDS2, label = fam),
+                  size = 3, max.overlaps = 16, col = fam_scores$colour, 
+                  fontface = "bold")
+  
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/nmds_plot.png", width=5, height=5, units="in", res=300)
+nmds_plot
+#dev.off()
+```
 
 # HGAM for seasonality of biomass and number of aquatic emergent insects
 For theoretical background see: Pedersen, E. J., Miller, D. L., Simpson, G. L., & Ross, N. (2019). https://doi.org/10.7717/peerj.6876
@@ -167,7 +287,7 @@ library(gratia)
 #          method = "REML")
 
 #save(bio_position_S, file="bio_position_S.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_S.RData")
+load("//Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_S.RData")
 
 BIC(bio_position_S)
 summary(bio_position_S)
@@ -189,7 +309,7 @@ par(mfrow = c(1,1))
 #          method = "REML")
 
 #save(bio_position_I, file="bio_position_I.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_I.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_I.RData")
 
 BIC(bio_position_S, bio_position_I) # bio_position_S is better model than models without similar group-level trends
 #summary(bio_position_I)
@@ -202,9 +322,9 @@ BIC(bio_position_S, bio_position_I) # bio_position_S is better model than models
 ```
 
 
-#### Effect size: Difference between average fit
+#### Effect size: Difference between mean fit
 
-Use difference between average fit of vine and forest as effect size and calculate its 95 % CI
+Use difference between mean fit of vine and forest as effect size and calculate its 95 % CI
 
 $$ CI_{95} = (X_{vine} - X_{forest}) ± 1.959964 \sqrt {\frac {\sigma_{vine}^2} {N_{vine}} + {\frac {\sigma_{forest}^2} {N_{forest}}}}$$
 
@@ -322,14 +442,35 @@ range(bio_position_S_stat_sig[19:26,]$diff_v_f) # 3.721289 4.305724
 
 ddply(bio_position_S_stat, c("position"), summarise, mean_fit = mean(fit), min_fit = min(fit), max_fit = max(fit))
 ```
-Estimate average export per area in whole sampling period
+Estimate export per area in whole sampling period
 ```{r, message=FALSE, warning=FALSE}
-export_bio <- ddply(bio_position_S_stat, c("position"), summarise, biomass_area_day_sum = sum(fit, na.rm = TRUE))
+export_bio <- ddply(bio_position_S_stat, c("position"), summarise, biomass_area_day_sum = sum(fit, na.rm = TRUE), biomass_area_day_mean = mean(fit, na.rm = TRUE), biomass_area_day_sd = sd(fit, na.rm = TRUE))
+
+export_bio$N <- 100
 
 export_bio$days <- with(bio_position_S_stat, max(bio_position_S_stat$day) - min(bio_position_S_stat$day))
 
-export_bio$biomass_area_mg <- with(export_bio, biomass_area_day_sum*days)
-export_bio$biomass_area_kg <- with(export_bio, round(biomass_area_mg*10^-6, digits = 2))
+export_bio$biomass_area_mg_sum <- with(export_bio, biomass_area_day_sum*days)
+export_bio$biomass_area_kg_sum <- with(export_bio, round(biomass_area_mg_sum*10^-6, digits = 3))
+
+export_bio$biomass_area_mg_mean <- with(export_bio, biomass_area_day_mean*days)
+
+export_bio$biomass_area_mg_sd <- with(export_bio, biomass_area_day_sd*days)
+```
+Calculate 95 % CI of export
+
+We need CI of sum, which is the same as CI of mean multiplied by the number of observations (N)
+
+$ \sigma $: standard deviation
+
+$$ CI_{95} = (mean ± 1.959964 \cdot {\sigma \over \sqrt N}) \cdot N $$
+```{r, message=FALSE, warning=FALSE}
+export_bio$upper_CI_mg <- with(export_bio, (biomass_area_mg_mean + 1.959964 * biomass_area_mg_sd/sqrt(N))*N)
+export_bio$upper_CI_kg <- with(export_bio, round(upper_CI_mg*10^-6, digits = 3))
+
+
+export_bio$lower_CI_mg <- with(export_bio, (biomass_area_mg_mean - 1.959964 * biomass_area_mg_sd/sqrt(N))*N)
+export_bio$lower_CI_kg <- with(export_bio, round(lower_CI_mg*10^-6, digits = 3))
 ```
 
 ### Number
@@ -342,7 +483,7 @@ export_bio$biomass_area_kg <- with(export_bio, round(biomass_area_mg*10^-6, digi
 #          method = "REML")
 
 # save(num_position_S, file="num_position_S.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_S.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_S.RData")
 
 BIC(num_position_S)
 
@@ -363,7 +504,7 @@ par(mfrow = c(1,1))
 #          family = tw(theta = NULL, link = "log",a=1.01,b=1.99),
 #          method = "REML")
 #save(num_position_I, file="num_position_I.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_I.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_I.RData")
 
 BIC(num_position_S, num_position_I) # num_position_S is better model than models without similar group-level trends
 
@@ -376,8 +517,9 @@ BIC(num_position_S, num_position_I) # num_position_S is better model than models
 #par(mfrow = c(1,1))
 ```
 
-#### Effect size: Difference between average fit
-Use difference between average fit of vine and forest as effect size and calculate its 95 % CI
+#### Effect size: Difference between mean fit
+Use difference between mean fit of vine and forest as effect size and calculate its 95 % CI
+
 Setup prediction data frame
 ```{r, message=FALSE, warning=FALSE}
 num_position_S_pred <- with(biomass_emergence_sample,
@@ -451,6 +593,7 @@ num_position_S_stat$position <- factor(num_position_S_stat$position, levels = c(
 
 num_position_S_stat_sig <- filter(num_position_S_stat, sig == "significant")
 ```
+
 Plot
 ```{r, message=FALSE, warning=FALSE}
 num_position_S_plot <- ggplot() +
@@ -478,8 +621,119 @@ gam_pos_plot <- ggarrange(bio_position_S_plot, num_position_S_plot,
                   ncol = 2, nrow = 1, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_pos.png", width=10, height=5, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_pos.png", width=10, height=5, units="in", res=300)
 gam_pos_plot
+#dev.off()
+```
+
+#### Plot biomass and abundance with raw date
+
+Rename vine and change order of factor
+```{r, message=FALSE, warning=FALSE}
+biomass_emergence_sample$position <- gsub("vine","agriculture", biomass_emergence_sample$position)
+biomass_emergence_sample$position <- factor(biomass_emergence_sample$position, levels = c("forest", "agriculture"))
+```
+
+Plot
+```{r, message=FALSE, warning=FALSE}
+bio_position_S_plot_forest_raw <- ggplot() +
+  theme_classic() + 
+  theme(legend.title = element_blank(), legend.position="bottom", 
+        plot.title = element_text(size=20), legend.text = element_text(size=20), axis.text = element_text(size=15), axis.title = element_text(size=15), axis.text.x = element_blank(), axis.title.x = element_blank()) +
+    guides(color = guide_legend(override.aes = list(size = 5))) +
+  geom_ribbon(data=bio_position_S_stat[bio_position_S_stat$position == "forest",], aes(x=day, y=fit, fill = position, ymin=(fit - 2*se), ymax=(fit + 2*se)), alpha = 0.1, show.legend = FALSE) +
+  scale_fill_manual(values=c("darkgreen"), aes(alpha = 0.1)) +
+  geom_line(data=bio_position_S_stat[bio_position_S_stat$position == "forest",], aes(x=day, y=fit, col = position), show.legend = FALSE) +
+  scale_color_manual(values=c("darkgreen")) +
+  geom_point(data =bio_position_S_stat_sig[bio_position_S_stat_sig$position == "forest",], aes(x=day, y=fit, col = position), show.legend = FALSE) +
+  geom_point(data =biomass_emergence_sample[biomass_emergence_sample$position == "forest",], aes(x=day, y=biomass_area_day_mg, col = position), show.legend = FALSE, alpha = 0.2, size = 1) +
+  geom_vline(aes(xintercept = 137), linetype = "dashed") +
+  geom_vline(aes(xintercept = 211), linetype = "dashed") +
+  labs(title = "Total biomass forest", 
+       x=expression(),
+       y=expression(biomass ~"("~mg~ ~m^-2~d^-1~")")) +
+  annotate(geom = "text", x = 105, y = 80, label = "spring", size = 6) +
+  annotate(geom = "text", x = 175, y = 80, label = "summer", size = 6) +
+  annotate(geom = "text", x = 240, y = 80, label = "autumn", size = 6)
+  
+bio_position_S_plot_forest_raw
+
+bio_position_S_plot_agri_raw <- ggplot() +
+  theme_classic() + 
+  theme(legend.title = element_blank(), legend.position="bottom", plot.title = element_text(size=20), legend.text = element_text(size=20), axis.text = element_blank(), axis.title = element_blank()) +
+    guides(color = guide_legend(override.aes = list(size = 5))) +
+  geom_ribbon(data=bio_position_S_stat[bio_position_S_stat$position == "agriculture",], aes(x=day, y=fit, fill = position, ymin=(fit - 2*se), ymax=(fit + 2*se)), alpha = 0.1, show.legend = FALSE) +
+  scale_fill_manual(values=c("blue"), aes(alpha = 0.1)) +
+  geom_line(data=bio_position_S_stat[bio_position_S_stat$position == "agriculture",], aes(x=day, y=fit, col = position), show.legend = FALSE) +
+  scale_color_manual(values=c("blue")) +
+  geom_point(data =bio_position_S_stat_sig[bio_position_S_stat_sig$position == "agriculture",], aes(x=day, y=fit, col = position), show.legend = FALSE) +
+  geom_point(data =biomass_emergence_sample[biomass_emergence_sample$position == "agriculture",], aes(x=day, y=biomass_area_day_mg, col = position), show.legend = FALSE, alpha = 0.2, size = 1) +
+  geom_vline(aes(xintercept = 137), linetype = "dashed") +
+  geom_vline(aes(xintercept = 211), linetype = "dashed") +
+  labs(title = "  Total biomass agriculture", 
+       x=expression(),
+       y=expression(biomass ~"("~mg~ ~m^-2~d^-1~")")) +
+  annotate(geom = "text", x = 105, y = 80, label = "spring", size = 6) +
+  annotate(geom = "text", x = 175, y = 80, label = "summer", size = 6) +
+  annotate(geom = "text", x = 240, y = 80, label = "autumn", size = 6)
+  
+bio_position_S_plot_agri_raw
+```
+
+
+Plot
+```{r, message=FALSE, warning=FALSE}
+num_position_S_plot_forest_raw <- ggplot() +
+  theme_classic() + 
+  theme(legend.title = element_blank(), legend.position="bottom", plot.title = element_text(size=20), legend.text = element_text(size=20), axis.text = element_text(size=15), axis.title = element_text(size=15),) +
+    guides(color = guide_legend(override.aes = list(size = 5))) +
+  geom_ribbon(data=num_position_S_stat[num_position_S_stat$position == "forest",], aes(x=day, y=fit, fill = position, ymin=(fit - 2*se), ymax=(fit + 2*se)), alpha = 0.1, show.legend = FALSE) +
+  scale_fill_manual(values=c("darkgreen"), aes(alpha = 0.1)) +
+  geom_line(data=num_position_S_stat[num_position_S_stat$position == "forest",], aes(x=day, y=fit, col = position)) +
+  scale_color_manual(values=c("darkgreen")) +
+  geom_point(data =num_position_S_stat_sig[num_position_S_stat_sig$position == "forest",], aes(x=day, y=fit, col = position), show.legend = FALSE) +
+  geom_point(data =biomass_emergence_sample[biomass_emergence_sample$position == "forest",], aes(x=day, y=number_area_day, col = position), show.legend = FALSE, alpha = 0.2, size = 1) +
+  geom_vline(aes(xintercept = 137), linetype = "dashed") +
+  geom_vline(aes(xintercept = 211), linetype = "dashed") +
+  labs(title = "Total abundance forest", 
+       x=expression(day~ of ~ the ~ year),
+       y=expression(abundance ~"("~ind~ ~m^-2~d^-1~")")) +
+  annotate(geom = "text", x = 105, y = 500, label = "spring", size = 6) +
+  annotate(geom = "text", x = 175, y = 500, label = "summer", size = 6) +
+  annotate(geom = "text", x = 240, y = 500, label = "autumn", size = 6)
+  
+num_position_S_plot_forest_raw
+
+num_position_S_plot_agri_raw <- ggplot() +
+  theme_classic() + 
+  theme(legend.title = element_blank(), legend.position="bottom", plot.title = element_text(size=20), legend.text = element_text(size=20), axis.text = element_text(size=15), axis.title = element_text(size=15), axis.title.y = element_blank(), axis.text.y = element_blank()) +
+    guides(color = guide_legend(override.aes = list(size = 5))) +
+  geom_ribbon(data=num_position_S_stat[num_position_S_stat$position == "agriculture",], aes(x=day, y=fit, fill = position, ymin=(fit - 2*se), ymax=(fit + 2*se)), alpha = 0.1, show.legend = FALSE) +
+  scale_fill_manual(values=c("blue"), aes(alpha = 0.1)) +
+  geom_line(data=num_position_S_stat[num_position_S_stat$position == "agriculture",], aes(x=day, y=fit, col = position)) +
+  scale_color_manual(values=c("blue")) +
+  geom_point(data =num_position_S_stat_sig[num_position_S_stat_sig$position == "agriculture",], aes(x=day, y=fit, col = position), show.legend = FALSE) +
+  geom_point(data =biomass_emergence_sample[biomass_emergence_sample$position == "agriculture",], aes(x=day, y=number_area_day, col = position), show.legend = FALSE, alpha = 0.2, size = 1) +
+  geom_vline(aes(xintercept = 137), linetype = "dashed") +
+  geom_vline(aes(xintercept = 211), linetype = "dashed") +
+  labs(title = "  Total abundance agriculture", 
+       x=expression(day ~ of ~ the ~ year),
+       y=expression()) +
+  annotate(geom = "text", x = 105, y = 500, label = "spring", size = 6) +
+  annotate(geom = "text", x = 175, y = 500, label = "summer", size = 6) +
+  annotate(geom = "text", x = 240, y = 500, label = "autumn", size = 6)
+  
+num_position_S_plot_agri_raw
+
+gam_pos_plot_raw <- ggarrange(bio_position_S_plot_forest_raw,
+                              bio_position_S_plot_agri_raw,
+                          num_position_S_plot_forest_raw, num_position_S_plot_agri_raw, 
+                  labels = c("A", "B", "C", "D"),
+                  ncol = 2, nrow = 2, 
+                  common.legend = FALSE, legend = "bottom")
+
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_pos_raw.png", width=10, height=10, units="in", res=300)
+gam_pos_plot_raw
 #dev.off()
 ```
 
@@ -491,14 +745,28 @@ range(num_position_S_stat_sig[30:62,]$diff_v_f) # summer: 9.311044 17.202652
 
 ddply(num_position_S_stat, c("position"), summarise, mean_fit = mean(fit), min_fit = min(fit), max_fit = max(fit))
 ```
-Estimate average export per area in whole sampling period
+Estimate export per area in whole sampling period
 ```{r, message=FALSE, warning=FALSE}
-export_num <- ddply(num_position_S_stat, c("position"), summarise, number_area_day_sum = sum(fit, na.rm = TRUE))
+export_num <- ddply(num_position_S_stat, c("position"), summarise, number_area_day_sum = sum(fit, na.rm = TRUE), number_area_day_mean = mean(fit, na.rm = TRUE), number_area_day_sd = sd(fit, na.rm = TRUE))
+
+export_num$N <- 100
 
 export_num$days <- with(bio_position_S_stat, max(num_position_S_stat$day) - min(num_position_S_stat$day))
 
-export_num$number_area <- with(export_num, round(number_area_day_sum*days, digits = 0))
+export_num$number_area_sum <- with(export_num, round(number_area_day_sum*days, digits = 0))
+
+export_num$number_area_mean <- with(export_num, round(number_area_day_mean*days, digits = 0))
+
+export_num$number_area_sd <- with(export_num, round(number_area_day_sd*days, digits = 0))
 ```
+
+Calculate 95 % CI of export
+```{r, message=FALSE, warning=FALSE}
+export_num$upper_CI <- with(export_num, round(((number_area_mean + 1.959964 * number_area_sd/sqrt(N))*N), digit = 0))
+
+export_num$lower_CI_mg <- with(export_num, round(((number_area_mean - 1.959964 * number_area_sd/sqrt(N))*N), digit = 0))
+```
+
 
 ## General patterns for order in vine/forest
 
@@ -514,7 +782,7 @@ export_num$number_area <- with(export_num, round(number_area_day_sum*days, digit
 #          method = "REML")
 
 #save(bio_position_order_S, file="bio_position_order_S.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_S.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_S.RData")
 
 BIC(bio_position_order_S)
 
@@ -536,7 +804,7 @@ par(mfrow = c(1,1))
 #          method = "REML")
 
 #save(bio_position_order_I, file="bio_position_order_I.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_I.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_I.RData")
 
 BIC(bio_position_order_S, bio_position_order_I) # bio_position_order_S better model
 
@@ -549,8 +817,8 @@ BIC(bio_position_order_S, bio_position_order_I) # bio_position_order_S better mo
 #par(mfrow = c(1,1))
 ```
 
-#### Effect size: Difference between average fit
-Use difference between average fit of vine and forest as effect size and calculate its 95 % CI
+#### Effect size: Difference between mean fit
+Use difference between mean fit of vine and forest as effect size and calculate its 95 % CI
 Setup prediction data frame
 ```{r, message=FALSE, warning=FALSE}
 bio_position_order_S_pred <- with(biomass_emergence_order_sample,
@@ -705,7 +973,7 @@ plot_bio <- ggarrange(bio_position_Diptera_S_plot, bio_position_Ephemeroptera_S_
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_bio.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_bio.png", width=10, height=10, units="in", res=300)
 plot_bio
 #dev.off()
 ```
@@ -735,7 +1003,7 @@ ddply(bio_position_order_S_stat, c("position", "order"), summarise, mean_fit = m
 #          method = "REML")
 
 #save(num_position_order_S, file="num_position_order_S.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_S.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_S.RData")
 
 BIC(num_position_order_S)
 
@@ -757,7 +1025,7 @@ par(mfrow = c(1,1))
 #          method = "REML")
 
 #save(num_position_order_I, file="num_position_order_I.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_I.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_I.RData")
 
 BIC(num_position_order_S, num_position_order_I) # num_position_order_S better model
 
@@ -770,8 +1038,8 @@ BIC(num_position_order_S, num_position_order_I) # num_position_order_S better mo
 #par(mfrow = c(1,1))
 ```
 
-#### Effect size: Difference between average fit
-Use difference between average fit of vine and forest as effect size and calculate its 95 % CI
+#### Effect size: Difference between mean fit
+Use difference between mean fit of vine and forest as effect size and calculate its 95 % CI
 Setup prediction data frame
 ```{r, message=FALSE, warning=FALSE}
 num_position_order_S_pred <- with(biomass_emergence_order_sample,
@@ -928,7 +1196,7 @@ plot_num <- ggarrange(num_position_Diptera_S_plot, num_position_Ephemeroptera_S_
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_num.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_num.png", width=10, height=10, units="in", res=300)
 plot_num
 #dev.off()
 ```
@@ -966,7 +1234,7 @@ ddply(num_position_order_S_stat, c("position", "order"), summarise, mean_fit = m
 #                    method = "fREML", discrete = TRUE) #bam with method = "fREML" and #discrete = TRUE to reduce run time
 
 #save(bio_position_family_S, file="bio_position_family_S.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_S.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_S.RData")
 
 BIC(bio_position_family_S)
 
@@ -988,7 +1256,7 @@ par(mfrow = c(1,1))
 #          method = "fREML", discrete = TRUE)
 
 #save(bio_position_family_I, file="bio_position_family_I.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_I.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_I.RData")
 
 BIC(bio_position_family_S, bio_position_family_I) # bio_position_family_S is better model
 
@@ -1001,8 +1269,8 @@ BIC(bio_position_family_S, bio_position_family_I) # bio_position_family_S is bet
 #par(mfrow = c(1,1))
 ```
 
-#### Effect size: Difference between average fit
-Use difference between average fit of vine and forest as effect size and calculate its 95 % CI
+#### Effect size: Difference between mean fit
+Use difference between mean fit of vine and forest as effect size and calculate its 95 % CI
 Setup prediction data frame
 ```{r, message=FALSE, warning=FALSE}
 bio_position_family_S_pred <- with(biomass_emergence_family_sample,
@@ -1297,7 +1565,7 @@ plot_bio_Dip <- ggarrange(bio_position_Chiro_S_plot, bio_position_Dix_fam_S_plot
                   ncol = 3, nrow = 4, 
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Dip.png", width=15, height=20, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Dip.png", width=15, height=20, units="in", res=300)
 plot_bio_Dip
 #dev.off()
 ```
@@ -1423,7 +1691,7 @@ plot_bio_Eph <- ggarrange(bio_position_Baetidae_S_plot, bio_position_Arthropleid
                   ncol = 3, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Eph.png", width=15, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Eph.png", width=15, height=10, units="in", res=300)
 plot_bio_Eph
 #dev.off()
 ```
@@ -1510,7 +1778,7 @@ plot_bio_Ple <- ggarrange(bio_position_Nemouridae_fam_S_plot, bio_position_Leuct
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Ple.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Ple.png", width=10, height=10, units="in", res=300)
 plot_bio_Ple
 #dev.off()
 ```
@@ -1770,7 +2038,7 @@ plot_bio_Tri <- ggarrange(bio_position_Hydropsychidae_S_plot, bio_position_Limne
                   ncol = 3, nrow = 5,
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Tri.png", width=15, height=25, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Tri.png", width=15, height=25, units="in", res=300)
 plot_bio_Tri
 #dev.off()
 ```
@@ -1789,7 +2057,7 @@ ddply(bio_position_family_S_stat, c("position", "order", "family"), summarise, m
 #          method = "fREML", discrete = TRUE)
 
 #save(num_position_family_S, file="num_position_family_S.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_S.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_S.RData")
 
 BIC(num_position_family_S)
 
@@ -1811,7 +2079,7 @@ par(mfrow = c(1,1))
 #          method = "fREML", discrete = TRUE)
 
 # save(num_position_family_I, file="num_position_family_I.RData")
-load("/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_I.RData")
+load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_I.RData")
 
 BIC(num_position_family_S, num_position_family_I) # num_position_family_S is better model
 
@@ -1823,8 +2091,8 @@ BIC(num_position_family_S, num_position_family_I) # num_position_family_S is bet
 #gam.check(num_position_family_I)  # looks okay
 #par(mfrow = c(1,1))
 ```
-#### Effect size: Difference between average fit
-Use difference between average fit of vine and forest as effect size and calculate its 95 % CI
+#### Effect size: Difference between mean fit
+Use difference between mean fit of vine and forest as effect size and calculate its 95 % CI
 Setup prediction data frame
 ```{r, message=FALSE, warning=FALSE}
 num_position_family_S_pred <- with(biomass_emergence_family_sample,
@@ -2122,7 +2390,7 @@ plot_num_Dip <- ggarrange(num_position_Chiro_S_plot, num_position_Dix_fam_S_plot
                   ncol = 3, nrow = 4, 
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Dip.png", width=15, height=20, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Dip.png", width=15, height=20, units="in", res=300)
 plot_num_Dip
 #dev.off()
 ```
@@ -2248,7 +2516,7 @@ plot_num_Eph <- ggarrange(num_position_Baetidae_S_plot, num_position_Arthropleid
                   ncol = 3, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Eph.png", width=15, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Eph.png", width=15, height=10, units="in", res=300)
 plot_num_Eph
 #dev.off()
 ```
@@ -2335,7 +2603,7 @@ plot_num_Ple <- ggarrange(num_position_Nemouridae_fam_S_plot, num_position_Leuct
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Ple.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Ple.png", width=10, height=10, units="in", res=300)
 plot_num_Ple
 #dev.off()
 ```
@@ -2594,7 +2862,7 @@ plot_num_Tri <- ggarrange(num_position_Hydropsychidae_S_plot, num_position_Limne
                   ncol = 3, nrow = 5, 
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Tri.png", width=15, height=25, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Tri.png", width=15, height=25, units="in", res=300)
 plot_num_Tri
 #dev.off()
 ```
@@ -2676,6 +2944,7 @@ max_num_fam$fit <- round(max_num_fam$fit, digits= 2)
 max_bio_fam <- filter(max_bio_fam, fit != 0)
 max_num_fam <- filter(max_num_fam, fit != 0)
 ```
+
 Numerate peaks
 ```{r, message =FALSE, warning= FALSE}
 max_bio_pos$peak_no <- c(1:2, 1:2)
@@ -2683,7 +2952,6 @@ max_num_pos$peak_no <- c(1:3,1:3)
 
 max_bio_ord$peak_no <- c(1,1:2,1,1,1:2,1,1:2,1:3)
 max_num_ord$peak_no <- c(1,1,1,1,1:2,1:2,1:3,1:3)
-
 
 count <- count(max_bio_fam, c("position","family")) 
 max_bio_fam <- merge(max_bio_fam, count, by = c("position", "family"))
@@ -2904,9 +3172,9 @@ names(max_fam)[7] <- "Difference day forest and agriculture"
 ```
 Export data
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(max_pos, file = "/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/max_pos.csv", row.names = FALSE)
-#write.csv(max_ord, file = "/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/max_ord.csv", row.names = FALSE)
-#write.csv(max_fam, file = "/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/max_fam.csv", row.names = FALSE)
+#write.csv(max_pos, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/max_pos.csv", row.names = FALSE)
+#write.csv(max_ord, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/max_ord.csv", row.names = FALSE)
+#write.csv(max_fam, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/max_fam.csv", row.names = FALSE)
 ```
 
 ## Export HGAM output 
@@ -4515,7 +4783,7 @@ R_ICC$sd_season <- sd_season
 
 model_summary <- left_join(model_summary, R_ICC, by = "model")
 
-#write.csv(model_summary, file = "/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/model_summary.csv")
+#write.csv(model_summary, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/model_summary.csv")
 ```
 ## Plots
 ```{r, message =FALSE, warning= FALSE}
@@ -4792,7 +5060,7 @@ names(model_summary_num)[7] <- c("upper_CI")
 ```
 Export data
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(model_summary_num, file = "/Users/katharinafrisch/Downloads/ohler_biomass/statistics_biomass_emergence/model_summary_num.csv")
+#write.csv(model_summary_num, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/2_second_submission/ohler_biomass/statistics_biomass_emergence/model_summary_num.csv")
 ```
 ## Plots
 ```{r, message =FALSE, warning= FALSE}
