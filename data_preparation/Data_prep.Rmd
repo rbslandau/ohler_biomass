@@ -32,10 +32,10 @@ library(ggpubr) # plots
 # Load abundance data
 You need to replace this line with a path on your computer
 ```{r, message=FALSE, warning=FALSE}
-emergence <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/emergence_identification_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+emergence <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_abundance_data/emergence_identification_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 #View(emergence)
 
-emergence_NA_zero <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/emergence_NA_0_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+emergence_NA_zero <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_abundance_data/emergence_NA_0_92.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 #View(emergence_NA_zero)
 ```
 Up in forest and down in vine
@@ -178,9 +178,9 @@ emergence$season <- as.factor(emergence$season)
 ```
 # Biomass and number data
 ```{r, message=FALSE, warning=FALSE}
-biomass_emergence <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/biomass_emergence_93.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+biomass_emergence <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_abundance_data/biomass_emergence_93.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 
-trap_days <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/no_trap_days.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+trap_days <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_abundance_data/no_trap_days.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 ## Forest and vine
 
@@ -452,7 +452,7 @@ emergence_NA <- filter(emergence_NA_zero, identified != "y")
 emergence_NA <- emergence_NA[,1:5]
 names(emergence_NA)[5] <- c("collection_days")
 
-emergence_NA_zero <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_abundance_data/no_trap_days_NA.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+emergence_NA_zero <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_abundance_data/no_trap_days_NA.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 Adjust column names
 ```{r, message=FALSE, warning=FALSE}
@@ -723,9 +723,9 @@ length(unique(percentage_dip_vin$family)) +
 # Trait data
 Load data
 ```{r, message=FALSE, warning=FALSE}
-generation_time <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data/generation_time_spear.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+generation_time <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/trait_data/generation_time_spear.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-Trait_EU <- readRDS(file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data/Trait_DB_EU_corrected.rds")
+Trait_EU <- readRDS(file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/trait_data/Trait_DB_EU_corrected.rds")
 ```
 ## Size
 ### Check which trait data available 
@@ -957,7 +957,7 @@ diff_size_rat <- ggplot() +
        y=expression(Difference~ ratio ~ between~ forest~ and~ agriculture)) +
   geom_hline(aes(yintercept = 0), linetype = "dashed")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_size_rat_class.png", width=15, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/diff_size_rat_class.png", width=15, height=10, units="in", res=300)
 diff_size_rat
 #dev.off()
 ```
@@ -1098,7 +1098,7 @@ diff_sen_rat <- ggplot() +
   labs(title = "Ratio of biomass for sensitive \nfamilies", y = expression(Difference~ ratio ~ between~ forest~ and~ agriculture), x = "") +
   geom_hline(aes(yintercept = 0), linetype = "dashed")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_gen_rat.png", width=5, height=5, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/diff_gen_rat.png", width=5, height=5, units="in", res=300)
 diff_sen_rat
 #dev.off()
 ```
@@ -1127,7 +1127,7 @@ trait_data_diff <- rbind(gen_bio_diff, size_bio_diff)
 # Physico-chemical (phys-chem) data
 ## Load data
 ```{r, message=FALSE, warning=FALSE}
-phys_chem <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/land_use_related_drivers_data/phys_chem.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+phys_chem <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/land_use_related_drivers_data/phys_chem.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 #View(phys_chem)
 ```
 
@@ -1477,7 +1477,7 @@ keep all original data, because transformation does not improve distribution muc
        
 # Habitat parameter
 ```{r, message=FALSE, warning=FALSE}
-habitat <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/land_use_related_drivers_data/habitat.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+habitat <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/land_use_related_drivers_data/habitat.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 ## Correct mistakes in raw data and convert it into right form
 Correct wrong date
@@ -1653,7 +1653,7 @@ library(EnvStats)
 * method "eds": event driven samples
 * concentration in µg/L
 ```{r, message=FALSE, warning=FALSE}
-psm_conc <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/3_ANA_ConcentrationTox.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+psm_conc <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/pesticide_data/3_ANA_ConcentrationTox.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 ## Chose data from Rhineland Palatinate and 2018
 ```{r, message=FALSE, warning=FALSE}
@@ -1677,7 +1677,7 @@ psm_conc_RP$Date <- as.Date(psm_conc_RP$sampleDate,format="%Y-%m-%d")
 
 Load samples 
 ```{r, message=FALSE, warning=FALSE}
-psm_forest <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/samples_forest_2.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+psm_forest <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/pesticide_data/samples_forest_2.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 ```
 Long format and name columns
 ```{r, message=FALSE, warning=FALSE}
@@ -1764,7 +1764,7 @@ psm_conc_RP <- filter(psm_conc_RP, !is.na(conc))
 ## Add CAS numbers
 Load in CAS information
 ```{r}
-CAS_KgM <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/0_ANA_Substances.txt", header = TRUE,sep = "\t", na.strings = c("NR", "NA")) 
+CAS_KgM <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/pesticide_data/0_ANA_Substances.txt", header = TRUE,sep = "\t", na.strings = c("NR", "NA")) 
 ```
 Merge tables
 ```{r}
@@ -2043,10 +2043,10 @@ det_compounds_eds <- as.data.frame(unique(psm_conc_RP_eds$subKgM)) # 64 pesticid
 ### Load data
 You need to replace this line with a path on your computer
 ```{r, message=FALSE, warning=FALSE}
-sed_conc <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/20191111_KgM_SPM-Extrakte_2018_final_nur_RLP.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+sed_conc <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/pesticide_data/20191111_KgM_SPM-Extrakte_2018_final_nur_RLP.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 # View(sed_conc)
 
-foc <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/06_Schwebstoffilter GC_LC.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+foc <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/pesticide_data/06_Schwebstoffilter GC_LC.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 # View(foc)
 ```
 Delete not needed rows
@@ -2262,7 +2262,7 @@ if (run) {
   saveRDS(query_st, file = "KGM_freshwater_invertebrate_XX50.rds")
 
 } else {
-  query_st = readRDS(file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/KGM_freshwater_invertebrate_XX50.rds")
+  query_st = readRDS(file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/pesticide_data/KGM_freshwater_invertebrate_XX50.rds")
 }
 
 # filtered data
@@ -2325,7 +2325,7 @@ EC50_missing <- distinct(EC50_missing)
 ```
 Load table with EC50 values looked up manually
 ```{r, message=FALSE, warning=FALSE}
-EC50_manually <- read.table("/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/pesticide_data/EC50_version_190326.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
+EC50_manually <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/pesticide_data/EC50_version_190326.csv", header = TRUE, sep = ",", na.strings = c("NR", "NA"), stringsAsFactors = FALSE)
 
 EC50_manually <- select(EC50_manually, c("casnr", "subst_name", "ec50f_ma4896_fin", "ec50f_ma4896_tax", "ec50f_ma4896_n", "ec50f_ma4896_src"))
 
@@ -2443,7 +2443,6 @@ Get sumTU per Date (meaning per sampling)
 ```{r, message=FALSE, warning=FALSE}
 sumTU_ms_date <- ddply(tox_ms, c("Site","method", "Date"), summarise, sumTU_ms=log10(sum(tox_ms_fac, na.rm = TRUE)))
 ```
-# HIER weiter
 
 Add season information
 ```{r, message =FALSE, warning= FALSE}
@@ -2572,7 +2571,7 @@ max_TU_sumTU <- ggplot(max_sumTU_plot, aes(x=day, y=value)) +
   annotate(geom = "text", x = 225, y = 1, label = "autumn", size = 6)
 
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/max_TU_sumTU.png", width=7.5, height=7.5, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/max_TU_sumTU.png", width=7.5, height=7.5, units="in", res=300)
 max_TU_sumTU
 #dev.off()
 ```
@@ -2732,14 +2731,15 @@ diff_shade <- ggplot() +
 plot_diff <- ggarrange(diff_sumTU, diff_water_temp, 
                           diff_NO3, diff_PO4, diff_cond,
                           diff_shade, diff_O2, diff_pool,   
-                  labels = c("A", "B", "C", "D", "E", "F", "G","H"),
+                  labels = c("(a)", "(b)", "(c)", "(d)", "(e)", "(f)", "(g)","(h)"),
+                  font.label = list(face = "bold"),
                   ncol = 4, nrow = 2, align = "v")
 
 plot_diff <- annotate_figure(plot_diff, top = text_grob(" ", face = "bold", size = 50))
 
 plot_diff <- annotate_figure(plot_diff, fig.lab = ("Differences in land use related drivers between forested and agricultural sites"), fig.lab.pos = "top.left", fig.lab.size = 25, fig.lab.face = "bold")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_plot.png", width=20, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/diff_plot.png", width=20, height=10, units="in", res=300)
 plot_diff
 #dev.off()
 ```
@@ -2786,10 +2786,11 @@ diff_fam <- ggplot() +
 diff_fam
 
 plot_diff_fam_ept <- ggarrange(diff_fam, diff_EPT, diff_dip,   
-                  labels = c("A", "B", "C"),
+                  labels = c("(a)", "(b)", "(c)"),
+                  font.label = list(face = "bold"),
                   ncol = 2, nrow = 2, align = "hv")
 
-#png(filename="/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/diff_fam_ept.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/diff_fam_ept.png", width=10, height=10, units="in", res=300)
 plot_diff_fam_ept
 #dev.off()
 ```
@@ -2877,25 +2878,25 @@ names(range_env_glmm)[1] <- c("Land use related driver")
 names(range_env_glmm)[3] <- c("Forest: mean and range")
 names(range_env_glmm)[4] <- c("Agriculture: mean and range")
 
-#write.csv(range_env_all, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/range_env_all.csv", row.names = FALSE)
-#write.csv(range_env_glmm, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/range_env_glmm.csv", row.names = FALSE)
+#write.csv(range_env_all, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/range_env_all.csv", row.names = FALSE)
+#write.csv(range_env_glmm, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/range_env_glmm.csv", row.names = FALSE)
 ```
 
 # Save data for statistics
 ## HGAM
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(biomass_emergence_sample, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_emergence_sample.csv", row.names = FALSE)
+#write.csv(biomass_emergence_sample, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_emergence_sample.csv", row.names = FALSE)
 
-#write.csv(biomass_emergence_order_sample, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_emergence_order_sample.csv", row.names = FALSE)
+#write.csv(biomass_emergence_order_sample, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_emergence_order_sample.csv", row.names = FALSE)
 
-#write.csv(biomass_emergence_family_sample, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/biomass_emergence_family_sample.csv", row.names = FALSE)
+#write.csv(biomass_emergence_family_sample, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/biomass_emergence_family_sample.csv", row.names = FALSE)
 ```
 ## (G)LMM
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(data_env_1, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/data_env_1.csv", row.names = FALSE)
+#write.csv(data_env_1, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/data_env_1.csv", row.names = FALSE)
 ```
 ## Paired t-test
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(trait_data, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data.csv", row.names = FALSE)
-#write.csv(trait_data_diff, file = "/Users/katharinafrisch/Downloads/ohler_biomass/data_preparation/trait_data_diff.csv", row.names = FALSE)
+#write.csv(trait_data, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/trait_data.csv", row.names = FALSE)
+#write.csv(trait_data_diff, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/data_preparation/trait_data_diff.csv", row.names = FALSE)
 ```

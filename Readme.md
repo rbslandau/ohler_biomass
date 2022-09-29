@@ -18,13 +18,13 @@ Written by Katharina Ohler, revised by Verena C. Schreiner and Ralf B. Schäfer
   1.5 no_trap_days_NA.csv: List with events where traps were destroyed by vandalism or heavy rainfall and, thus, no insects were collected
 
  2. land_use_related_drivers_data: All habitat and physicochemical raw data  
-    2.1 habitat.csv: Habitat variables 
+  2.1 habitat.csv: Habitat variables  
   2.2 phys_chem.csv: Physicochemical land use-related-drivers of emergent aquatic insects  
 
  3. pesticide_data: All raw data to calculate pesticide toxicity  
-   3.1 0_ANA_Substances.txt: CAS number of pesticides
-   3.2 3_ANA_ConcentrationTox.csv: Concentration of pesticides in event and grab samples
-    3.3 06_Schwebstoffilter GC_LC.csv: Fraction of organic carbon in the samples of suspended particles    
+  3.1 0_ANA_Substances.txt: CAS number of pesticides  
+  3.2 3_ANA_ConcentrationTox.csv: Concentration of pesticides in event and grab samples  
+  3.3 06_Schwebstoffilter GC_LC.csv: Fraction of organic carbon in the samples of suspended particles  
   3.4 20191111_KgM_SPM-Extrakte_2018_final_nur_RLP.csv: Concentration of pesticides on suspended particles  
   3.5 EC50_version_190326.csv: EC50 values not found in Standartox  
   3.6 KGM_freshwater_invertebrate_XX50.rds: EC50 from Standartox
