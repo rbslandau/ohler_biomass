@@ -1,7 +1,7 @@
 # Repo for the publication: Land use changes biomass and temporal patterns of insect cross-ecosystem flows
 
 
-This repo contains the R code and data for the related manuscript submitted for publication.
+This repo contains the R code and data for the related manuscript [published in Global Change Biology](https://doi.org/10.1111/gcb.16462)
 
 Written by Katharina Ohler, revised by Verena C. Schreiner and Ralf B. Schäfer
 
