@@ -34,17 +34,17 @@ library(texreg) # export model output to html or latex
 # Load data
 You need to replace this line with a path on your computer
 ```{r, message=FALSE, warning=FALSE}
-trait_data <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+trait_data <- read.table("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-trait_data_diff <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data_diff.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+trait_data_diff <- read.table("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/stats_trait_data/trait_data_diff.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-biomass_emergence_family_sample <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_family_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+biomass_emergence_family_sample <- read.table("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_family_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-biomass_emergence_order_sample <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_order_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+biomass_emergence_order_sample <- read.table("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_order_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-biomass_emergence_sample <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+biomass_emergence_sample <- read.table("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/stats_biomass_abundance_data/biomass_emergence_sample.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 
-data_env_1 <- read.table("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/stats_land_use_related_drivers_data/data_env_1.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
+data_env_1 <- read.table("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/stats_land_use_related_drivers_data/data_env_1.csv", header = TRUE, sep = ",",na.strings = c("NR", "NA"), stringsAsFactors = TRUE)
 ```
 
 # Paired t-test for trait data
@@ -170,8 +170,8 @@ abline(h = 0.10, col = "red")
 with Jaccard Index
 ```{r, message=FALSE, warning=FALSE}
 #nmds <- metaMDS(spec_ma_site, k = 4, distance = "jaccard", autotransform = FALSE)
-#saveRDS(nmds, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/nmds.rds")
-nmds <- readRDS(file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/ANOSIM/nmds.rds")
+#saveRDS(nmds, file = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/nmds.rds")
+nmds <- readRDS(file = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/ANOSIM/nmds.rds")
 ```
 
 Shepard diagram
@@ -251,7 +251,7 @@ nmds_plot <- ggplot() +
                   size = 3, max.overlaps = 16, col = fam_scores$colour, 
                   fontface = "bold")
   
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/nmds_plot.png", width=5, height=5, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/nmds_plot.png", width=5, height=5, units="in", res=300)
 nmds_plot
 #dev.off()
 ```
@@ -287,7 +287,7 @@ library(gratia)
 #          method = "REML")
 
 #save(bio_position_S, file="bio_position_S.RData")
-load("//Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_S.RData")
+load("//Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_S.RData")
 
 BIC(bio_position_S)
 summary(bio_position_S)
@@ -309,7 +309,7 @@ par(mfrow = c(1,1))
 #          method = "REML")
 
 #save(bio_position_I, file="bio_position_I.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_I.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_I.RData")
 
 BIC(bio_position_S, bio_position_I) # bio_position_S is better model than models without similar group-level trends
 #summary(bio_position_I)
@@ -483,7 +483,7 @@ export_bio$lower_CI_kg <- with(export_bio, round(lower_CI_mg*10^-6, digits = 3))
 #          method = "REML")
 
 # save(num_position_S, file="num_position_S.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_S.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_S.RData")
 
 BIC(num_position_S)
 
@@ -504,7 +504,7 @@ par(mfrow = c(1,1))
 #          family = tw(theta = NULL, link = "log",a=1.01,b=1.99),
 #          method = "REML")
 #save(num_position_I, file="num_position_I.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_I.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_I.RData")
 
 BIC(num_position_S, num_position_I) # num_position_S is better model than models without similar group-level trends
 
@@ -622,12 +622,12 @@ gam_pos_plot <- ggarrange(bio_position_S_plot, num_position_S_plot,
                   ncol = 2, nrow = 1, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_pos.png", width=10, height=5, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_pos.png", width=10, height=5, units="in", res=300)
 gam_pos_plot
 #dev.off()
 
 
-#ggsave(filename = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_pos_1.png", gam_pos_plot, width = 10, height = 5, device="png", dpi=300)
+#ggsave(filename = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_pos_1.png", gam_pos_plot, width = 10, height = 5, device="png", dpi=300)
 ```
 
 #### Plot biomass and abundance with raw date
@@ -737,7 +737,7 @@ gam_pos_plot_raw <- ggarrange(bio_position_S_plot_forest_raw,
                   ncol = 2, nrow = 2, 
                   common.legend = FALSE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_pos_raw.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_pos_raw.png", width=10, height=10, units="in", res=300)
 gam_pos_plot_raw
 #dev.off()
 ```
@@ -787,7 +787,7 @@ export_num$lower_CI_mg <- with(export_num, round(((number_area_mean - 1.959964 *
 #          method = "REML")
 
 #save(bio_position_order_S, file="bio_position_order_S.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_S.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_S.RData")
 
 BIC(bio_position_order_S)
 
@@ -809,7 +809,7 @@ par(mfrow = c(1,1))
 #          method = "REML")
 
 #save(bio_position_order_I, file="bio_position_order_I.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_I.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_order_I.RData")
 
 BIC(bio_position_order_S, bio_position_order_I) # bio_position_order_S better model
 
@@ -979,7 +979,7 @@ plot_bio <- ggarrange(bio_position_Diptera_S_plot, bio_position_Ephemeroptera_S_
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_bio.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_bio.png", width=10, height=10, units="in", res=300)
 plot_bio
 #dev.off()
 ```
@@ -1009,7 +1009,7 @@ ddply(bio_position_order_S_stat, c("position", "order"), summarise, mean_fit = m
 #          method = "REML")
 
 #save(num_position_order_S, file="num_position_order_S.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_S.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_S.RData")
 
 BIC(num_position_order_S)
 
@@ -1031,7 +1031,7 @@ par(mfrow = c(1,1))
 #          method = "REML")
 
 #save(num_position_order_I, file="num_position_order_I.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_I.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_order_I.RData")
 
 BIC(num_position_order_S, num_position_order_I) # num_position_order_S better model
 
@@ -1203,7 +1203,7 @@ plot_num <- ggarrange(num_position_Diptera_S_plot, num_position_Ephemeroptera_S_
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_num.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_num.png", width=10, height=10, units="in", res=300)
 plot_num
 #dev.off()
 ```
@@ -1241,7 +1241,7 @@ ddply(num_position_order_S_stat, c("position", "order"), summarise, mean_fit = m
 #                    method = "fREML", discrete = TRUE) #bam with method = "fREML" and #discrete = TRUE to reduce run time
 
 #save(bio_position_family_S, file="bio_position_family_S.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_S.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_S.RData")
 
 BIC(bio_position_family_S)
 
@@ -1263,7 +1263,7 @@ par(mfrow = c(1,1))
 #          method = "fREML", discrete = TRUE)
 
 #save(bio_position_family_I, file="bio_position_family_I.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_I.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_biomass/bio_position_family_I.RData")
 
 BIC(bio_position_family_S, bio_position_family_I) # bio_position_family_S is better model
 
@@ -1574,7 +1574,7 @@ plot_bio_Dip <- ggarrange(bio_position_Chiro_S_plot, bio_position_Dix_fam_S_plot
                   ncol = 3, nrow = 4, 
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Dip.png", width=15, height=20, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Dip.png", width=15, height=20, units="in", res=300)
 plot_bio_Dip
 #dev.off()
 ```
@@ -1701,7 +1701,7 @@ plot_bio_Eph <- ggarrange(bio_position_Baetidae_S_plot, bio_position_Arthropleid
                   ncol = 3, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Eph.png", width=15, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Eph.png", width=15, height=10, units="in", res=300)
 plot_bio_Eph
 #dev.off()
 ```
@@ -1789,7 +1789,7 @@ plot_bio_Ple <- ggarrange(bio_position_Nemouridae_fam_S_plot, bio_position_Leuct
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Ple.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Ple.png", width=10, height=10, units="in", res=300)
 plot_bio_Ple
 #dev.off()
 ```
@@ -2051,7 +2051,7 @@ plot_bio_Tri <- ggarrange(bio_position_Hydropsychidae_S_plot, bio_position_Limne
                   ncol = 3, nrow = 5,
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Tri.png", width=15, height=25, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_bio_Tri.png", width=15, height=25, units="in", res=300)
 plot_bio_Tri
 #dev.off()
 ```
@@ -2070,7 +2070,7 @@ ddply(bio_position_family_S_stat, c("position", "order", "family"), summarise, m
 #          method = "fREML", discrete = TRUE)
 
 #save(num_position_family_S, file="num_position_family_S.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_S.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_S.RData")
 
 BIC(num_position_family_S)
 
@@ -2092,7 +2092,7 @@ par(mfrow = c(1,1))
 #          method = "fREML", discrete = TRUE)
 
 # save(num_position_family_I, file="num_position_family_I.RData")
-load("/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_I.RData")
+load("/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/HGAM_abundance/num_position_family_I.RData")
 
 BIC(num_position_family_S, num_position_family_I) # num_position_family_S is better model
 
@@ -2405,7 +2405,7 @@ plot_num_Dip <- ggarrange(num_position_Chiro_S_plot, num_position_Dix_fam_S_plot
                   ncol = 3, nrow = 4, 
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Dip.png", width=15, height=20, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Dip.png", width=15, height=20, units="in", res=300)
 plot_num_Dip
 #dev.off()
 ```
@@ -2532,7 +2532,7 @@ plot_num_Eph <- ggarrange(num_position_Baetidae_S_plot, num_position_Arthropleid
                   ncol = 3, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Eph.png", width=15, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Eph.png", width=15, height=10, units="in", res=300)
 plot_num_Eph
 #dev.off()
 ```
@@ -2620,7 +2620,7 @@ plot_num_Ple <- ggarrange(num_position_Nemouridae_fam_S_plot, num_position_Leuct
                   ncol = 2, nrow = 2, 
                   common.legend = TRUE, legend = "bottom")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Ple.png", width=10, height=10, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Ple.png", width=10, height=10, units="in", res=300)
 plot_num_Ple
 #dev.off()
 ```
@@ -2881,7 +2881,7 @@ plot_num_Tri <- ggarrange(num_position_Hydropsychidae_S_plot, num_position_Limne
                   ncol = 3, nrow = 5, 
                   common.legend = TRUE, legend = "bottom", align = "h")
 
-#png(filename="/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Tri.png", width=15, height=25, units="in", res=300)
+#png(filename="/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/gam_plot_num_Tri.png", width=15, height=25, units="in", res=300)
 plot_num_Tri
 #dev.off()
 ```
@@ -3191,9 +3191,9 @@ names(max_fam)[7] <- "Difference day forest and agriculture"
 ```
 Export data
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(max_pos, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/max_pos.csv", row.names = FALSE)
-#write.csv(max_ord, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/max_ord.csv", row.names = FALSE)
-#write.csv(max_fam, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/max_fam.csv", row.names = FALSE)
+#write.csv(max_pos, file = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/max_pos.csv", row.names = FALSE)
+#write.csv(max_ord, file = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/max_ord.csv", row.names = FALSE)
+#write.csv(max_fam, file = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/max_fam.csv", row.names = FALSE)
 ```
 
 ## Export HGAM output 
@@ -3206,7 +3206,7 @@ Export data
 # (G)LMM
 ## Check for collinearity 
 ```{r, message =FALSE, warning= FALSE}
-cor <- data_env_1[, c(2,4, 27:34)]
+cor <- data_env_1[, c(2,4, 28:35)]
 
 cor$stream <- as.numeric(cor$stream)
 cor$season <- as.numeric(cor$season) 
@@ -3423,7 +3423,7 @@ N <- nrow(data_env_scale) # sample size
 p <- lmm_bio_final$fixerror
 p <- p[!is.na(p)]
 p <- length(p) # number of parameters (here fixed factors and intercept, in literature discussion, if random factors included or not)
-sum(E_bio^2)/(N-p) # 0.5 = 0.5 -> okay
+sum(E_bio^2)/(N-p) # 0.42, okay only slight underdispersion
 ```
 * for line in middle not that problematic, only prediction intervals and so on are not reliable
 
@@ -3456,9 +3456,9 @@ $$ ICC_{season} = { \frac {\sigma^2_{season}} {\sigma^2_{fixed} + \sigma^2_{seas
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_bio <- lmm_bio_final$coefficients# estimated regression parameters
-beta_bio <- beta_bio[c(1)]
+beta_bio <- beta_bio[c(1,2,7)]
 
-X_bio <- model.matrix(~1, data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
+X_bio <- model.matrix(~ max_sumTU_ms_pyr + conductivity , data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
 
 var_bio_fix <- var(as.vector(X_bio %*% beta_bio))
 ```
@@ -3677,9 +3677,9 @@ sum(E_bio_eph^2)/(N-p) # ok
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_bio_eph <- lmm_bio_eph_final$coefficients# estimated regression parameters
-beta_bio_eph <- beta_bio_eph[c(1,2,5,6,7)] # remove variables, which are not in final model (=0)
+beta_bio_eph <- beta_bio_eph[c(1)] # remove variables, which are not in final model (=0)
 
-X_bio_eph <- model.matrix(~max_sumTU_ms_pyr + water_temp + pools + conductivity, data = data_env_scale) # model matrix LMM, first column only 1 for intercept, other columns fixed effects
+X_bio_eph <- model.matrix(~1, data = data_env_scale) # model matrix LMM, first column only 1 for intercept, other columns fixed effects
 
 var_bio_eph_fix <- var(as.vector(X_bio_eph %*% beta_bio_eph))
 ```
@@ -3788,9 +3788,9 @@ sum(E_bio_ple^2)/(N-p) # ok
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_bio_ple <- lmm_bio_ple_final$coefficients# estimated regression parameters LMM
-beta_bio_ple <- beta_bio_ple[c(1,2,4,5,7,8)] # remove variables, which are not in final model (=0)
+beta_bio_ple <- beta_bio_ple[c(1,2)] # remove variables, which are not in final model (=0)
 
-X_bio_ple <- model.matrix(~max_sumTU_ms_pyr + PO4 + water_temp + conductivity + shading, data = data_env_scale) # model matrix LMM, first column only 1 for intercept, other columns fixed effects
+X_bio_ple <- model.matrix(~max_sumTU_ms_pyr, data = data_env_scale) # model matrix LMM, first column only 1 for intercept, other columns fixed effects
 
 var_bio_ple_fix <- var(as.vector(X_bio_ple %*% beta_bio_ple))
 ```
@@ -3898,9 +3898,9 @@ sum(E_bio_tri^2)/(N-p) # ok
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_bio_tri <- lmm_bio_tri_final$coefficients# estimated regression parameters LMM
-beta_bio_tri <- beta_bio_tri[c(1, 7)]
+beta_bio_tri <- beta_bio_tri[c(1, 2, 7)]
 
-X_bio_tri <- model.matrix(~conductivity, data = data_env_scale) # model LMM, first column only 1 for intercept, other columns fixed effects
+X_bio_tri <- model.matrix(~max_sumTU_ms_pyr + conductivity, data = data_env_scale) # model LMM, first column only 1 for intercept, other columns fixed effects
 
 var_bio_tri_fix <- var(as.vector(X_bio_tri %*% beta_bio_tri))
 ```
@@ -4052,9 +4052,9 @@ sum(E_num^2)/(N-p) #  < 0.5 -> underdispersion
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_num <- lmm_num_final$coefficients# estimated regression parameters
-beta_num <- beta_num[c(1)]
+beta_num <- beta_num[c(1,6,7,8,9)]
 
-X_num <- model.matrix(~1, data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
+X_num <- model.matrix(~pools+conductivity+shading+o2_perc, data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
 
 var_num_fix <- var(as.vector(X_num %*% beta_num))
 ```
@@ -4160,9 +4160,9 @@ sum(E_num_dip^2)/(N-p) # slight underdispersion
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_num_dip <- lmm_num_dip_final$coefficients# estimated regression parameters 
-beta_num_dip <- beta_num_dip[c(1)]
+beta_num_dip <- beta_num_dip[c(1,6,7,8,9)]
 
-X_num_dip <- model.matrix(~ 1, data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
+X_num_dip <- model.matrix(~ pools + conductivity+shading+o2_perc, data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
 
 var_num_dip_fix <- var(as.vector(X_num_dip %*% beta_num_dip))
 ```
@@ -4269,9 +4269,9 @@ sum(E_num_eph^2)/(N-p) # ok
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_num_eph <- lmm_num_eph_final$coefficients# estimated regression parameters LMM
-beta_num_eph <- beta_num_eph[c(1)] # remove variables, which are not in final model (=0)
+beta_num_eph <- beta_num_eph[c(1,2)] # remove variables, which are not in final model (=0)
 
-X_num_eph <- model.matrix(~1, data = data_env_scale) # model matrix LMM, first column only 1 for intercept, other columns fixed effects
+X_num_eph <- model.matrix(~max_sumTU_ms_pyr, data = data_env_scale) # model matrix LMM, first column only 1 for intercept, other columns fixed effects
 
 var_num_eph_fix <- var(as.vector(X_num_eph %*% beta_num_eph))
 ```
@@ -4638,9 +4638,9 @@ sum(E_ept^2)/(N-p) # okay
 ##### Estimante variance form fixed effects
 ```{r, message=FALSE, warning=FALSE}
 beta_ept <- glmm_ept_final$coefficients# estimated regression parameters Poisson GLMM
-beta_ept <- beta_ept[c(1,2,4)]
+beta_ept <- beta_ept[c(1)]
 
-X_ept <- model.matrix(~ max_sumTU_ms_pyr + PO4, data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
+X_ept <- model.matrix(~ 1, data = data_env_scale) # model matrix LN GLMM, first column only 1 for intercept, other columns fixed effects
 
 var_ept_fix <- var(as.vector(X_ept %*% beta_ept))
 ```
@@ -4707,13 +4707,43 @@ ICC_ept_sea <- (var_ept_season)/(var_ept_fix + var_ept_season + var_ept_obs)
 ```
 
 ## Export (G)LMM output
-R^2 and ICC
+R^2, ICC, sd random factors
 ```{r, message =FALSE, warning= FALSE}
-model <- c("lmm_bio", "lmm_bio_dip", "lmm_bio_eph", "lmm_bio_ple", "lmm_bio_tri", "lmm_num", "lmm_num_dip", "lmm_num_eph", "lmm_num_ple", "lmm_num_tri","glmm_ept")
+Model <- c("Total biomass", "Fly biomass", "Mayfly biomass", "Stonefly biomass",
+           "Caddisfly biomass", "Total abundance", "Fly abundance", "Mayfly abundance",
+           "Stonefly abundance", "Caddisfly abundance","Number EPT families")
 
-R_mar <- c(R_bio_mar, R_bio_dip_mar, R_bio_eph_mar, R_bio_ple_mar, R_bio_tri_mar, R_num_mar, R_num_dip_mar, R_num_eph_mar, R_num_ple_mar, R_num_tri_mar, R_ept_mar)
+sd_stream <- c(lmm_bio_final[["StdDev"]][[1]],
+               lmm_bio_dip_final[["StdDev"]][[1]],
+               lmm_bio_eph_final[["StdDev"]][[1]],
+               lmm_bio_ple_final[["StdDev"]][[1]],
+               lmm_bio_tri_final[["StdDev"]][[1]],
+               lmm_num_final[["StdDev"]][[1]],
+               lmm_num_dip_final[["StdDev"]][[1]],
+               lmm_num_eph_final[["StdDev"]][[1]],
+               lmm_num_ple_final[["StdDev"]][[1]],
+               lmm_num_tri_final[["StdDev"]][[1]],
+               glmm_ept_final[["StdDev"]][[1]])
 
-R_con <- c(R_bio_con, R_bio_dip_con, R_bio_eph_con, R_bio_ple_con, R_bio_tri_con, R_num_con, R_num_dip_con, R_num_eph_con, R_num_ple_con, R_num_tri_con, R_ept_con)
+sd_season <- c(lmm_bio_final[["StdDev"]][[2]],
+               lmm_bio_dip_final[["StdDev"]][[2]],
+               lmm_bio_eph_final[["StdDev"]][[2]],
+               lmm_bio_ple_final[["StdDev"]][[2]],
+               lmm_bio_tri_final[["StdDev"]][[2]],
+               lmm_num_final[["StdDev"]][[2]],
+               lmm_num_dip_final[["StdDev"]][[2]],
+               lmm_num_eph_final[["StdDev"]][[2]],
+               lmm_num_ple_final[["StdDev"]][[2]],
+               lmm_num_tri_final[["StdDev"]][[2]],
+               glmm_ept_final[["StdDev"]][[2]])
+
+R_mar <- c(R_bio_mar, R_bio_dip_mar, R_bio_eph_mar, R_bio_ple_mar, R_bio_tri_mar,
+           R_num_mar, R_num_dip_mar, R_num_eph_mar, R_num_ple_mar, R_num_tri_mar,
+           R_ept_mar)
+
+R_con <- c(R_bio_con, R_bio_dip_con, R_bio_eph_con, R_bio_ple_con, R_bio_tri_con,
+           R_num_con, R_num_dip_con, R_num_eph_con, R_num_ple_con, R_num_tri_con,
+           R_ept_con)
 
 ICC_str_adj <- c(ICC_bio_str_adj, ICC_bio_dip_str_adj, ICC_bio_eph_str_adj, ICC_bio_ple_str_adj, ICC_bio_tri_str_adj, ICC_num_str_adj, ICC_num_dip_str_adj, ICC_num_eph_str_adj, ICC_num_tri_str_adj, ICC_num_ple_str_adj, ICC_ept_str_adj)
 
@@ -4723,59 +4753,82 @@ ICC_str <- c(ICC_bio_str, ICC_bio_dip_str, ICC_bio_eph_str, ICC_bio_ple_str, ICC
 
 ICC_sea <- c(ICC_bio_sea, ICC_bio_dip_sea, ICC_bio_eph_sea, ICC_bio_ple_sea, ICC_bio_tri_sea, ICC_num_sea, ICC_num_dip_sea, ICC_num_eph_sea, ICC_num_tri_sea, ICC_num_ple_sea, ICC_ept_sea)
 
-R_ICC <- as.data.frame(cbind(model, R_mar, R_con, ICC_str, ICC_str_adj, ICC_sea, ICC_sea_adj))
+R_ICC <- as.data.frame(cbind(Model, R_mar, R_con, ICC_str, ICC_str_adj, ICC_sea, ICC_sea_adj, sd_stream, sd_season))
+
+R_ICC$R_mar <- as.numeric(R_ICC$R_mar)
+R_ICC$R_con <- as.numeric(R_ICC$R_con)
+R_ICC$ICC_str <- as.numeric(R_ICC$ICC_str)
+R_ICC$ICC_str_adj <- as.numeric(R_ICC$ICC_str_adj)
+R_ICC$ICC_sea <- as.numeric(R_ICC$ICC_sea)
+R_ICC$ICC_sea_adj <- as.numeric(R_ICC$ICC_sea_adj)
+R_ICC$sd_stream <- as.numeric(R_ICC$sd_stream)
+R_ICC$sd_season <- as.numeric(R_ICC$sd_season)
+
+R_ICC[,2:9] <- round(R_ICC[,2:9], digits = 2)
+
+R_ICC[,2:7] <- R_ICC[,2:7]*100
 ```
-Coefficients
+
+Coefficients, standard errors, z-values
 ```{r, message =FALSE, warning= FALSE}
-coef_bio <- lmm_bio_final[["coefficients"]]
-coef_bio_dip <- lmm_bio_dip_final[["coefficients"]]
-coef_bio_eph <- lmm_bio_eph_final[["coefficients"]]
-coef_bio_ple <- lmm_bio_ple_final[["coefficients"]]
-coef_bio_tri <- lmm_bio_tri_final[["coefficients"]]
+coef_bio <- as.data.frame(summary(lmm_bio_final)[["coefficients"]])
+coef_bio_dip <- as.data.frame(summary(lmm_bio_dip_final)[["coefficients"]])
+coef_bio_eph <- as.data.frame(summary(lmm_bio_eph_final)[["coefficients"]])
+coef_bio_ple <- as.data.frame(summary(lmm_bio_ple_final)[["coefficients"]])
+coef_bio_tri <- as.data.frame(summary(lmm_bio_tri_final)[["coefficients"]])
+  
+coef_num <- as.data.frame(summary(lmm_num_final)[["coefficients"]])
+coef_num_dip <- as.data.frame(summary(lmm_num_dip_final)[["coefficients"]])
+coef_num_eph <- as.data.frame(summary(lmm_num_eph_final)[["coefficients"]])
+coef_num_ple <- as.data.frame(summary(lmm_num_ple_final)[["coefficients"]])
+coef_num_tri <- as.data.frame(summary(lmm_num_tri_final)[["coefficients"]])
 
-coef_num <- lmm_num_final[["coefficients"]]
-coef_num_dip <- lmm_num_dip_final[["coefficients"]]
-coef_num_eph <- lmm_num_eph_final[["coefficients"]]
-coef_num_ple <- lmm_num_ple_final[["coefficients"]]
-coef_num_tri <- lmm_num_tri_final[["coefficients"]]
+coef_ept <- as.data.frame(summary(glmm_ept_final)[["coefficients"]])
 
-coef_ept <- glmm_ept_final[["coefficients"]]
+coef <- rbind(coef_bio, coef_bio_dip, coef_bio_eph, coef_bio_ple, coef_bio_tri,
+              coef_num, coef_num_dip, coef_num_eph, coef_num_ple, coef_num_tri,
+              coef_ept)
+
+Model <- c(rep("Total biomass",9), rep("Fly biomass",9), rep("Mayfly biomass",9),
+           rep("Stonefly biomass",9), rep("Caddisfly biomass",9), 
+           rep("Total abundance",9),
+           rep("Fly abundance",9), rep("Mayfly abundance",9), 
+           rep("Stonefly abundance",9),
+           rep("Caddisfly abundance",9),rep("Number EPT families",9))
+
+coef$Model <- Model
+
+coef <- filter(coef, Estimate != 0)
+
+coef$Parameter <- rownames(coef)
+
+coef$Parameter <- with(coef, 
+              ifelse(Parameter %like% "Intercept", "Intercept",
+              ifelse(Parameter %like% "shading", "Shading",
+              ifelse(Parameter %like% "conductivity", "EC",
+              ifelse(Parameter %like% "max_sumTU_ms_pyr", "Toxicity",
+              ifelse(Parameter %like% "pool", "Percentage pool habitats",
+              ifelse(Parameter %like% "o2_perc", "Oxygen saturation", "Z")))))))
+
+coef[,1:4] <- round(coef[,1:4], digits = 2)
 ```
-Standard errors
+
+Bind coef and R_ICC
 ```{r, message =FALSE, warning= FALSE}
-se_bio <- lmm_bio_final[["fixerror"]]
-se_bio_dip <- lmm_bio_dip_final[["fixerror"]]
-se_bio_eph <- lmm_bio_eph_final[["fixerror"]]
-se_bio_ple <- lmm_bio_ple_final[["fixerror"]]
-se_bio_tri <- lmm_bio_tri_final[["fixerror"]]
+model_summary <- left_join(coef, R_ICC, by = "Model")
 
-se_num <- lmm_num_final[["fixerror"]]
-se_num_dip <- lmm_num_dip_final[["fixerror"]]
-se_num_eph <- lmm_num_eph_final[["fixerror"]]
-se_num_ple <- lmm_num_ple_final[["fixerror"]]
-se_num_tri <- lmm_num_tri_final[["fixerror"]]
+model_summary <- dplyr::select(model_summary, 
+                               c("Model", "Parameter", "Estimate", 
+                                       "StdErr", "z.value", "sd_stream",
+                                       "sd_season", "R_mar", "R_con",
+                                       "ICC_str_adj", "ICC_sea_adj"))
 
-se_ept <- glmm_ept_final[["fixerror"]]
+write.csv(model_summary, "model_summary.csv", row.names = FALSE)
+
 ```
-Create dataframe
-```{r, message =FALSE, warning= FALSE}
-model_summary <- as.data.frame(rbind(coef_bio, coef_bio_dip, coef_bio_eph, coef_bio_ple, coef_bio_tri, coef_num, coef_num_dip, coef_num_eph, coef_num_ple, coef_num_tri, coef_ept))
-model_summary <- model_summary[,-c(3,9)]
-model_summary$model <- model
-names(model_summary)[1] <- c("intercept")
-model_summary <-  melt(model_summary, id.vars = c("model"))
-model_summary <- filter(model_summary, value != 0)
 
-se <- as.data.frame(rbind(se_bio, se_bio_dip, se_bio_eph, se_bio_ple, se_bio_tri, se_num, se_num_dip, se_num_eph, se_num_ple, se_num_tri, se_ept))
-se <- se[,-c(3,9)]
-se$model <- model
-names(se)[1] <- c("intercept")
-se <-  melt(se, id.vars = c("model"))
-names(se)[3] <- c("se")
-se <- filter(se, !is.na(se))
 
-model_summary <- left_join(model_summary, se, by=c("model", "variable"))
-```
+
 Data for plotting
 ```{r, message =FALSE, warning= FALSE}
 plot_glmm_data <- model_summary
@@ -4802,7 +4855,7 @@ R_ICC$sd_season <- sd_season
 
 model_summary <- left_join(model_summary, R_ICC, by = "model")
 
-#write.csv(model_summary, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/model_summary.csv")
+#write.csv(model_summary, file = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/model_summary.csv")
 ```
 ## Plots
 ```{r, message =FALSE, warning= FALSE}
@@ -5079,7 +5132,7 @@ names(model_summary_num)[7] <- c("upper_CI")
 ```
 Export data
 ```{r, message =FALSE, warning= FALSE}
-#write.csv(model_summary_num, file = "/Users/katharinafrisch/Nextcloud/Uni/Paper/Biomass Paper/GCB_submission/3_accepted/ohler_biomass/statistics_biomass_emergence/model_summary_num.csv")
+#write.csv(model_summary_num, file = "/Users/katharinafrisch/Documents/Uni/Paper/Biomass Paper/GCB_submission/4_new_mixed_models/ohler_biomass/statistics_biomass_emergence/model_summary_num.csv")
 ```
 ## Plots
 ```{r, message =FALSE, warning= FALSE}
